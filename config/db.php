@@ -2,6 +2,6 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'sqlite:@runtime/db.sqlite',
+    'dsn' => 'sqlite:@app/db.sqlite',
     'charset' => 'utf8',
 ];

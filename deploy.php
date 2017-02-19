@@ -9,7 +9,7 @@ require 'recipe/yii.php';
 // Set configurations
 set('repository', 'https://github.com/Lastefond/coinreader-fe.git');
 set('shared_files', [
-    'runtime/db.sqlite',
+    'db.sqlite',
 ]);
 task('deploy:fix_assets', function () {
     run('chmod 777 {{release_path}}/web/assets');
@@ -29,6 +29,7 @@ task('deploy', [
     'deploy:prepare',
     'deploy:release',
     'deploy:update_code',
+    'deploy:shared',
     'deploy:vendors',
     'deploy:fix_assets',
     'deploy:fix_runtime',
