@@ -15,6 +15,9 @@ task('deploy:fix_assets', function () {
 task('deploy:fix_runtime', function () {
     run('chmod -R 777 {{release_path}}/runtime');
 });
+task('deploy:run_migrations', function () {
+    run('{{release_path}}/yii migrate up --interactive=0');
+})->desc('Run migrations');
 
 // Configure servers
 localServer('production')
@@ -27,6 +30,7 @@ task('deploy', [
     'deploy:vendors',
     'deploy:fix_assets',
     'deploy:fix_runtime',
+    'deploy:rum_migrations',
     'deploy:symlink',
     'cleanup',
 ])->desc('Deploy your project');
