@@ -6,7 +6,7 @@ use yii\helpers\Url;
 
 $this->title = 'My Yii Application';
 $this->registerJs(<<<JS
-    var socketUrl = '192.168.0.105:8080/coins';
+    var socketUrl = '0.0.0.0:8080/coins';
     var coins = [];
     var sum = 0;
     var coinMap = {
