@@ -26,12 +26,12 @@ class SendCoinsController extends Controller
         parent::init();
 
         if (!Yii::$app->params['coinSender']['boxId']) {
-            echo 'Box ID must be set!';
+            echo 'Box ID must be set!' . PHP_EOL;
             exit(Controller::EXIT_CODE_ERROR);
         }
 
         if (!Yii::$app->params['coinSender']['apiUrl']) {
-            echo 'API url must be set!';
+            echo 'API url must be set!' . PHP_EOL;
             exit(Controller::EXIT_CODE_ERROR);
         }
     }
