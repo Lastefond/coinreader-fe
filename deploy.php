@@ -12,9 +12,6 @@ set('repository', 'https://github.com/Lastefond/coinreader-fe.git');
 task('deploy:fix_assets', function () {
     run('chmod 777 {{release_path}}/web/assets');
 });
-task('deploy:fix_runtime', function () {
-    run('chmod -R 777 {{release_path}}/runtime');
-});
 task('deploy:run_migrations', function () {
     run('{{release_path}}/yii migrate up --interactive=0');
 })->desc('Run migrations');
@@ -30,7 +27,6 @@ task('deploy', [
     'deploy:shared',
     'deploy:vendors',
     'deploy:fix_assets',
-    'deploy:fix_runtime',
     'deploy:run_migrations',
     'deploy:symlink',
     'cleanup',
