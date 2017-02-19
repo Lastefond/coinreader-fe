@@ -8,8 +8,25 @@ require 'recipe/yii.php';
 
 // Set configurations
 set('repository', 'https://github.com/Lastefond/coinreader-fe.git');
-set('writable_dirs', ['runtime', 'web/assets']);
+
+task('deploy:fix_assets', function () {
+    run('chmod 777 {{release_path}}/web/assets');
+});
+task('deploy:fix_runtime', function () {
+    run('chmod -R 777 {{release_path}}/runtime');
+});
 
 // Configure servers
 localServer('production')
     ->env('deploy_path', '/var/www/html/coinreader-fe');
+
+task('deploy', [
+    'deploy:prepare',
+    'deploy:release',
+    'deploy:update_code',
+    'deploy:vendors',
+    'deploy:fix_assets',
+    'deploy:fix_runtime',
+    'deploy:symlink',
+    'cleanup',
+])->desc('Deploy your project');
