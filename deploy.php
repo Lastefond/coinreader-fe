@@ -30,7 +30,7 @@ task('deploy', [
     'deploy:vendors',
     'deploy:fix_assets',
     'deploy:fix_runtime',
-    'deploy:rum_migrations',
+    'deploy:run_migrations',
     'deploy:symlink',
     'cleanup',
 ])->desc('Deploy your project');
