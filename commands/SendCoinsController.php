@@ -10,6 +10,7 @@ namespace app\commands;
 use app\models\CoinLog;
 use app\models\User;
 use GuzzleHttp\Client;
+use Yii;
 use yii\console\Controller;
 use yii\helpers\ArrayHelper;
 
@@ -20,8 +21,20 @@ use yii\helpers\ArrayHelper;
  */
 class SendCoinsController extends Controller
 {
-    public $apiUrl = '';
+    public function init()
+    {
+        parent::init();
 
+        if (!Yii::$app->params['coinSender']['boxId']) {
+            echo 'Box ID must be set!';
+            return Controller::EXIT_CODE_ERROR;
+        }
+
+        if (!Yii::$app->params['coinSender']['apiUrl']) {
+            echo 'API url must be set!';
+            return Controller::EXIT_CODE_ERROR;
+        }
+    }
     /**
      * Yes, send coins!
      */
@@ -29,7 +42,9 @@ class SendCoinsController extends Controller
     {
         echo 'Sending coins..' . "\n";
 
-        $payload = [];
+        $payload = [
+            'box_id' => Yii::$app->params['coinSender']['boxId'],
+        ];
         $users = User::find()->all();
         /** @var User $user */
         foreach ($users as $user) {
@@ -46,8 +61,10 @@ class SendCoinsController extends Controller
             ];
         }
 
-        $client = new Client();
-        $res = $client->post($this->apiUrl, [
+        $client = new Client([
+            'base_uri' => Yii::$app->params['coinSender']['apiUrl'],
+        ]);
+        $res = $client->post('donators.json', [
             'json' => $payload,
         ]);
 
