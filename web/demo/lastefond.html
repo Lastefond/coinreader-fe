@@ -1,0 +1,83 @@
+	<!DOCTYPE html>
+  <html>
+  <head>
+   <meta charset="utf-8">
+
+   <title>Klaver</title>
+
+   <!-- jQuery & jQuery UI + theme (required) -->
+   <script src="js/jquery-latest.min.js"></script>
+   <script src="js/jquery-ui.min.js"></script>
+
+   <!-- keyboard widget css & script (required) -->
+   <link href="css/keyboard.css" rel="stylesheet">
+   <link href="css/keyboard-previewkeyset.css" rel="stylesheet">
+   <script src="js/jquery.keyboard.js"></script>
+
+   <!-- custom styles for keyboard -->
+   <link href="css/lastefond.css" rel="stylesheet">
+   <link href="css/keyboard-lastefond.css" rel="stylesheet">
+   <link href="css/animations.css" rel="stylesheet">
+
+ </head>
+ <body>
+
+  <div class="wrapper animated bounceIn">
+    <div class="content inserted-sum animated fadeIn">
+      <div class="title animated fadeIn">
+        Sisestatud summa
+      </div>
+      <div class="sum animated bounceIn">2.50€</div>
+      <div class="button animated fadeIn next">
+        Lõpeta sisestamine  
+      </div>
+    </div>
+    <div class="content keyboard hidden">
+    <input type="text" id="keyboard" placeholder="Sisesta nimi" / style="display: none;">
+  </div>
+  </div>
+
+
+  <script>
+  $('.inserted-sum .next').click(function(){
+    $('.sum').addClass('fadeOut');
+    $('.title').addClass('fadeOut');
+    $(this).addClass('fadeOut');
+    // Next step
+    $('.keyboard').removeClass('hidden');
+    // $('.ui-keyboard').addClass('animated bounceIn');
+  });
+
+    $('#keyboard').keyboard({
+     alwaysOpen:true,
+     layout: 'custom',
+     appendLocally: '.keyboard',
+     stickyShift: false,
+     display: {
+      'shift'  : '&#8679;',
+      'cancel' : 'Kustuta kõik',
+      'accept'   : 'Lõpeta nime sisestus'
+    },
+    accepted : function(event, keyboard, el) {
+      alert('Tänan ' + el.value + '!');
+    },
+    customLayout : {
+      'normal': [
+      'q w e r t y u i o p ü õ {b}',
+      'a s d f g h j k l ö ä',
+      '{shift} z x c v b n m - {shift}',
+      '{cancel} space {accept}'
+      ],
+      'shift': [
+      'Q W E R T Y U I O P Ü Õ {b}',
+      'A S D F G H J K L Ö Ä',
+      '{shift} Z X C V B N M - {shift}',
+      '{cancel} {space} {accept}'
+      ]
+    }
+  });
+
+</script>
+</body>
+</html>
+
