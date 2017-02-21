@@ -65,11 +65,8 @@ $this->registerJs(<<<JS
         });
 
         var formData = {
-            User: {
-                first_name: $('#f_name').val(),
-                last_name: $('#l_name').val()
-            },
-            Coin: coinData
+            first_name: $('#name').val(),
+            coins: coins
         };
         
         $.post( $('#coinform').attr('action'), formData, function( data, hue, xhr ) {
@@ -95,14 +92,9 @@ JS
 
         <form id="coinform" action="<?= Url::to(['/coin']) ?>" method="post">
             <div class="form-group">
-                <label>Eesnimi</label>
+                <label>Nimi</label>
                 <input id="f_name" class="form-control" name="User[first_name]">
             </div>
-            <div class="form-group">
-                <label>Perekonnanimi</label>
-                <input id="l_name" class="form-control" name="User[last_name]">
-            </div>
-
             <button type="submit" class="btn btn-lg btn-success">Yes, send money!</button>
         </form>
 

@@ -2,20 +2,10 @@
 
 namespace app\controllers;
 
-use app\models\Donator;
 use Yii;
-use yii\rest\Controller;
+use yii\rest\ActiveController;
 
-class CoinController extends Controller
+class CoinController extends ActiveController
 {
-    public function actionCreate()
-    {
-        $donator = new Donator();
-
-        if ($donator->load(Yii::$app->request->post())) {
-            $donator->save();
-        }
-
-        return $donator;
-    }
+    public $modelClass = 'app\models\Donator';
 }
