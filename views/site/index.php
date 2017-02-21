@@ -59,10 +59,6 @@ $this->registerJs(<<<JS
     
     $('body').on('submit', '#coinform', function (e) {
         e.preventDefault();
-        var coinData = [];
-        coins.forEach(function (coin, idx) {
-            coinData[idx] = {coin_value: coin};
-        });
 
         var formData = {
             first_name: $('#name').val(),
