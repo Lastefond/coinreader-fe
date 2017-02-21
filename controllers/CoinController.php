@@ -15,5 +15,7 @@ class CoinController extends Controller
         if ($donator->load(Yii::$app->request->post())) {
             $donator->save();
         }
+
+        return $donator;
     }
 }
