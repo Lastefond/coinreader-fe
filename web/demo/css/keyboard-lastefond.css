@@ -20,8 +20,8 @@
 }
 
 .ui-keyboard-button {
-  height: 6em;
-  width: 6em;
+  height: 4.8em;
+  width: 4.8em;
   margin: .3em;
   line-height: 6em;
   -moz-user-focus: ignore;
