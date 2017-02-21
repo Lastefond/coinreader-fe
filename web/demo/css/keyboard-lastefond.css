@@ -1,6 +1,7 @@
 .ui-keyboard{
   width:100%;
   top:50%!important;
+  left: 0%!important;
   margin-top:-182px;
 }
 
