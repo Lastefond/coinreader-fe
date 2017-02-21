@@ -26,6 +26,7 @@ class AppAsset extends AssetBundle
         'demo/css/animations.css',
     ];
     public $js = [
+        'demo/js/coinHandler.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

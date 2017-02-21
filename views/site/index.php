@@ -7,10 +7,10 @@ use yii\helpers\Url;
 $this->title = 'My Yii Application';
 $coinreaderUrl = Yii::$app->params['coinReader']['url'];
 $this->registerJs(<<<JS
-    var socketUrl = '{$coinreaderUrl}';
-    var coins = [];
-    var sum = 0;
-    var coinMap = {
+    socketUrl = '{$coinreaderUrl}';
+    coins = [];
+    sum = 0;
+    coinMap = {
         1: 200,
         2: 100,
         3: 50,
@@ -18,62 +18,8 @@ $this->registerJs(<<<JS
         5: 10,
         6: 5
     };
-
-    var mapCoin = function (value) {
-        return coinMap[value] || 0;
-    };
-    
-    var resetCounters = function () {
-        coins = [];
-        sum = 0;
-        addCoin(0);
-    };
-    
-    var addCoin = function(coinValue) {
-        coins.push(coinValue);
-        sum += parseInt(coinValue);
-        var eur = sum / 100;
-        $('#sum').text(eur.toFixed(2) + ' €');
-    };
-
-    function start(websocketServerLocation){
-        var connection = new WebSocket(websocketServerLocation);
-
-        // When the connection is open, send some data to the server
-        connection.onopen = function () {
-
-        };
-
-        // Log errors on connection open
-        connection.onerror = function (error) {
-            
-        };
-
-        // Log messages from the server
-        connection.onmessage = function (e) {
-            addCoin(mapCoin(e.data));
-        };
-    }
-
-    start(socketUrl);
-    
-    $('body').on('submit', '#coinform', function (e) {
-        e.preventDefault();
-
-        var formData = {
-            first_name: $('#name').val(),
-            coins: coins
-        };
-        
-        $.post( $('#coinform').attr('action'), formData)
-        .success(function () {
-            resetCounters();
-        }).error(function(data) {
-            console.log(data);
-        });
-    });
 JS
-)
+, \yii\web\View::POS_HEAD)
 ?>
 <div class="site-index">
 
