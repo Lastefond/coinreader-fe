@@ -41,6 +41,7 @@ class Donator extends ActiveRecord
     {
         return [
             [['name'], 'string'],
+            [['coins'], 'required'],
             [['coins'], 'each', 'rule' => ['integer']],
             [['coins'], 'each', 'rule' => ['in', 'range' => self::COIN_VALUES]],
             [['timestamp'], 'safe'],
