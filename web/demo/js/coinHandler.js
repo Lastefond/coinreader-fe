@@ -41,7 +41,7 @@
         e.preventDefault();
 
         var formData = {
-            first_name: $('#name').val(),
+            name: $('#name').val(),
             coins: window.coins
         };
 
