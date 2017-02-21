@@ -2,7 +2,7 @@
   width:100%;
   top:50%!important;
   left: 0%!important;
-  margin-top:-182px;
+  margin-top:-192px;
 }
 
 .ui-keyboard-preview{
@@ -28,7 +28,7 @@
 }
 
 .ui-keyboard-space{
-  width: 40em;
+  width: 80em;
 }
 
 button{
