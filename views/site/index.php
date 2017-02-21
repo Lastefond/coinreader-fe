@@ -116,7 +116,7 @@ JS
     $(this).addClass('fadeOut');
     // Next step
     $('.keyboard').removeClass('hidden');
-    // $('.ui-keyboard').addClass('animated bounceIn');
+    $('.ui-keyboard').addClass('animated bounceIn');
   });
 
     $('#keyboard').keyboard({
