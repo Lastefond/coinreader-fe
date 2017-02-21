@@ -19,11 +19,11 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
-        'css/demo/lastefond.css',
-        'css/demo/keyboard.css',
-        'css/demo/keyboard-previewkeyset.css',
-        'css/demo/keyboard-lastefond.css',
-        'css/demo/animations.css',
+        'demo/css/lastefond.css',
+        'demo/css/keyboard.css',
+        'demo/css/keyboard-previewkeyset.css',
+        'demo/css/keyboard-lastefond.css',
+        'demo/css/animations.css',
     ];
     public $js = [
     ];
