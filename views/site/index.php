@@ -29,7 +29,7 @@ JS
         <form id="coinform" action="<?= Url::to(['/coin']) ?>" method="post">
             <div class="form-group">
                 <label>Nimi</label>
-                <input id="f_name" class="form-control" name="User[first_name]">
+                <input id="name" class="form-control" name="name">
             </div>
             <button type="submit" class="btn btn-lg btn-success">Yes, send money!</button>
         </form>
