@@ -65,17 +65,11 @@ $this->registerJs(<<<JS
             coins: coins
         };
         
-        $.post( $('#coinform').attr('action'), formData, function( data, hue, xhr ) {
-            if (xhr.status == 200) {
-                resetCounters();
-            }
-            else if (xhr.status == 202) {
-                // TODO no coins entered
-                alert(data.message);
-            }
+        $.post( $('#coinform').attr('action'), formData)
+        .success(function () {
+            resetCounters();
         }).error(function(data) {
-            // TODO handle better
-            alert(data);
+            console.log(data);
         });
     });
 JS
