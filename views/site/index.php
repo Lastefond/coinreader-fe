@@ -89,6 +89,10 @@ JS
 )
 ?>
 
+<script src="js/jquery-latest.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+
+
 <div class="wrapper animated bounceIn">
     <div class="content inserted-sum animated fadeIn">
       <div class="title animated fadeIn">
