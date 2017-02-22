@@ -27,8 +27,8 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/coinHandler.js',
-        'js/jquery-latest.js',
-        'js/jquery-ui.js',
+        'js/jquery-latest.min.js',
+        'js/jquery-ui.min.js',
         'js/jquery.keyboard.js',
     ];
     public $depends = [

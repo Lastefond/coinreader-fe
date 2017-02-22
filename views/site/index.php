@@ -85,6 +85,51 @@ $this->registerJs(<<<JS
             alert(data);
         });
     });
+
+    $('.inserted-sum .next').click(function(){
+    $('.sum').addClass('fadeOut');
+    $('.title').addClass('fadeOut');
+    $(this).addClass('fadeOut');
+    // Next step keyboard
+    $('.keyboard').removeClass('hidden');
+    $('.ui-keyboard').addClass('animated bounceIn');
+  });
+
+
+
+    $('#keyboard').keyboard({
+      validate: function(keyboard, value, isClosing){
+        var regex_empty_two_chars = /\w{2,}/.test(value);
+        if (!regex_empty_two_chars && isClosing) {
+          alert('Palun sisesta nimi või lõpeta annetus anonüümselt');
+        }
+        return regex_empty_two_chars;
+      },
+     alwaysOpen:true,     
+     reposition : false,
+     layout: 'custom',
+     appendLocally: '.keyboard',
+     stickyShift: false,
+     display: {
+      'shift'  : '&#8679;',
+      'cancel' : 'Anonüümne annetus',
+      'accept'   : 'Lõpeta nime sisestus'
+    },
+    accepted : function(event, keyboard, el) {
+      var name  = el.value
+      alert('Tänan ' + name + '!');
+    },
+    customLayout : {
+      'normal': [
+      'Q W E R T Y U I O P Ü Õ {b}',
+      'A S D F G H J K L Ö Ä',
+      'Z X C V B N M - ',
+      '{space}',
+      '',
+      ' {cancel} {accept}'
+      ]
+    }
+  });
 JS
 )
 ?>
@@ -107,41 +152,7 @@ JS
 
 
   <script>
-  $('.inserted-sum .next').click(function(){
-    alert('kala');
-    $('.sum').addClass('fadeOut');
-    $('.title').addClass('fadeOut');
-    $(this).addClass('fadeOut');
-    // Next step
-    $('.keyboard').removeClass('hidden');
-    $('.ui-keyboard').addClass('animated bounceIn');
-  });
-
-    $('#keyboard').keyboard({
-     alwaysOpen:true,     
-     reposition : false,
-     layout: 'custom',
-     appendLocally: '.keyboard',
-     stickyShift: false,
-     display: {
-      'shift'  : '&#8679;',
-      'cancel' : 'Anonüümne annetus',
-      'accept'   : 'Lõpeta nime sisestus'
-    },
-    accepted : function(event, keyboard, el) {
-      alert('Tänan ' + el.value + '!');
-    },
-    customLayout : {
-      'normal': [
-      'Q W E R T Y U I O P Ü Õ {b}',
-      'A S D F G H J K L Ö Ä',
-      'Z X C V B N M - ',
-      '{space}',
-      '',
-      ' {cancel} {accept}'
-      ]
-    }
-  });
+  
 
 </script>
 
