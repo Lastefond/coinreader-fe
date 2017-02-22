@@ -20,35 +20,32 @@ body{
   text-align: center;
 }
 
-.wrapper .title, .wrapper .button{
+.wrapper .button{
   padding: 1em;
   border-radius: 3em;
-  min-width: 200px;
+  width: 400px;
   position: absolute;
   top:50%;
   left:50%;
-
-}
-
-.wrapper .title{
-  background-color: #f9d574;
-  margin: -250px -100px;
 }
 
 .wrapper .button{
   background-color: #5a42d7;
   color:white;
   text-transform: uppercase;
-  margin: 200px -100px;
+  line-height: 1em;
+  font-size: 30px;
+  margin: 185px -200px;
 }
 
 .wrapper .content{
   border-radius: 1em;
   height: 400px;
+  margin-top: 90px;
+  font-size: 40px;
 }
 
 .wrapper .inserted-sum .sum{
-  margin-top: 90px;
   font-size: 180px;
   color: #5a42d7;
   text-shadow: -3px 0 white, 0 3px white, 3px 0 white, 0 -3px white;
