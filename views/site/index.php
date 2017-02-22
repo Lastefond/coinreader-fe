@@ -89,9 +89,6 @@ JS
 )
 ?>
 
-<script src="js/jquery-latest.min.js"></script>
-<script src="js/jquery-ui.min.js"></script>
-
 
 <div class="wrapper animated bounceIn">
     <div class="content inserted-sum animated fadeIn">
@@ -111,6 +108,7 @@ JS
 
   <script>
   $('.inserted-sum .next').click(function(){
+    alert('kala');
     $('.sum').addClass('fadeOut');
     $('.title').addClass('fadeOut');
     $(this).addClass('fadeOut');
