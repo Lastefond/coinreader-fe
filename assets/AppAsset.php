@@ -19,11 +19,11 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
-        'demo/css/lastefond.css',
-        'demo/css/keyboard.css',
-        'demo/css/keyboard-previewkeyset.css',
-        'demo/css/keyboard-lastefond.css',
-        'demo/css/animations.css',
+        'css/lastefond.css',
+        'css/keyboard.css',
+        'css/keyboard-previewkeyset.css',
+        'css/keyboard-lastefond.css',
+        'css/animations.css',
     ];
     public $js = [
         'demo/js/coinHandler.js',

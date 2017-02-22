@@ -1,0 +1,55 @@
+body{
+  background-color: #ffedbc;
+}
+
+.hidden{
+  display: none;
+}
+
+.wrapper{
+  width: 1000px;
+  height: 450px;
+  position: absolute;
+  top:50%;
+  left:50%;
+  margin: -200px -500px;
+  background-image: url('../img/bg-content.jpg');
+  background-color: white;
+  border-radius: 1em;
+  border: solid 3px #f9d574;
+  text-align: center;
+}
+
+.wrapper .title, .wrapper .button{
+  padding: 1em;
+  border-radius: 3em;
+  min-width: 200px;
+  position: absolute;
+  top:50%;
+  left:50%;
+
+}
+
+.wrapper .title{
+  background-color: #f9d574;
+  margin: -250px -100px;
+}
+
+.wrapper .button{
+  background-color: #5a42d7;
+  color:white;
+  text-transform: uppercase;
+  margin: 200px -100px;
+}
+
+.wrapper .content{
+  border-radius: 1em;
+  height: 400px;
+}
+
+.wrapper .inserted-sum .sum{
+  margin-top: 90px;
+  font-size: 180px;
+  color: #5a42d7;
+  text-shadow: -3px 0 white, 0 3px white, 3px 0 white, 0 -3px white;
+}
