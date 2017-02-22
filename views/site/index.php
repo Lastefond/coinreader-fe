@@ -98,7 +98,7 @@ JS
       <div class="title animated fadeIn">
         Sisestatud summa
       </div>
-      <div class="sum animated bounceIn">2.50€</div>
+      <div id="sum" class="sum animated bounceIn">0.00 €</div>
       <div class="button animated fadeIn next">
         Lõpeta sisestamine  
       </div>
@@ -150,7 +150,7 @@ JS
 <div class="site-index hidden">
 
     <div class="jumbotron hidden">
-        <h1>Summa: <span id="sum">0.00 €</span> </h1>
+        <h1>Summa: <span>0.00 €</span> </h1>
 
         <form id="coinform" action="<?= Url::to(['/coin']) ?>" method="post">
             <div class="form-group">
