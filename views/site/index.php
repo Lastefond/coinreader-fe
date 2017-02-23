@@ -118,6 +118,9 @@ $this->registerJs(<<<JS
     accepted : function(event, keyboard, el) {
       var name  = el.value
       alert('Tänan ' + name + '!');
+      
+      location.reload();
+      
     },
     customLayout : {
       'normal': [
@@ -149,12 +152,6 @@ JS
       <input type="text" id="keyboard" placeholder="Sisesta nimi" / style="display: none;">
     </div>
   </div>
-
-
-  <script>
-  
-
-</script>
 
 <div class="site-index hidden">
 
