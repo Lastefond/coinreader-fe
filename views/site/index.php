@@ -128,7 +128,6 @@ $this->registerJs(<<<JS
       'A S D F G H J K L Ö Ä',
       'Z X C V B N M - ',
       '{space}',
-      '',
       ' {cancel} {accept}'
       ]
     }
