@@ -51,3 +51,15 @@ body{
   color: #5a42d7;
   text-shadow: -3px 0 white, 0 3px white, 3px 0 white, 0 -3px white;
 }
+
+.img-left-corner{
+  position: absolute;
+  bottom: 20px; 
+  left: 30px; 
+}
+
+.img-right-corner{
+  position: absolute;
+  bottom: 20px; 
+  right: 30px; 
+}

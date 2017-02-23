@@ -136,6 +136,8 @@ JS
 )
 ?>
 
+<img src="img/logo-lastefond.png" alt="" class="img-left-corner">
+<img src="img/content-flower.png" alt="" class="img-right-corner">
 
 <div class="wrapper animated bounceIn">
     <div class="content inserted-sum animated fadeIn">
