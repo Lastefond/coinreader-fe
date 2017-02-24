@@ -11,16 +11,14 @@ $this->registerJs(<<<JS
   $(document).ready(function(){
     $('.bxslider').bxSlider({
       auto: true,
-      controls: false
+      controls: false,
+      easing: 'ease-in-out',
+      touchEnabled: false
     });
     $('#sum').bind("DOMSubtreeModified",function(){
-      alert('changed');
-    });
-  });
-
-  $('.bxslider').click(function() {
-    $('.bx-wrapper').addClass('animated fadeOut');
+      $('.bx-wrapper').addClass('animated fadeOut');
     $('.wrapper').removeClass('hidden').addClass('bounceIn');
+    });
   });
 
 
