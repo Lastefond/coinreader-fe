@@ -24,12 +24,14 @@ class AppAsset extends AssetBundle
         'css/keyboard-previewkeyset.css',
         'css/keyboard-lastefond.css',
         'css/animations.css',
+        'js/jquery.bxslider/jquery.bxslider.css'
     ];
     public $js = [
         'js/coinHandler.js',
         'js/jquery-latest.min.js',
         'js/jquery-ui.min.js',
         'js/jquery.keyboard.js',
+        'js/jquery.bxslider/jquery.bxslider.min.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

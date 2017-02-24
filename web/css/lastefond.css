@@ -1,4 +1,5 @@
 body{
+  margin:0;
   background-color: #ffedbc;
   overflow: hidden;
   -webkit-touch-callout: none;
@@ -68,4 +69,22 @@ body{
   position: absolute;
   bottom: 20px; 
   right: 30px; 
+}
+
+.modal{
+  width: 400px;
+  height: 200px;
+  top:50%;
+  left:50%;
+  margin:-100px -200px;
+  z-index: 50000;
+  background: white;
+  border-radius: 3px;
+  position: absolute;
+  text-align: center;
+  font-size: 30px;
+}
+
+.thank-you{
+
 }
