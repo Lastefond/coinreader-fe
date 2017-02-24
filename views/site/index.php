@@ -13,6 +13,9 @@ $this->registerJs(<<<JS
       auto: true,
       controls: false
     });
+    $('#sum').bind("DOMSubtreeModified",function(){
+      alert('changed');
+    });
   });
 
   $('.bxslider').click(function() {
