@@ -89,3 +89,10 @@ body{
 .thank-you{
 
 }
+
+.footer-img{
+  bottom: 0;
+  width: 100%;
+  height: 130px;
+  position: absolute;
+}

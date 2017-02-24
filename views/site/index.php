@@ -15,9 +15,17 @@ $this->registerJs(<<<JS
       easing: 'ease-in-out',
       touchEnabled: false
     });
+    
+    // $('.bxslider').click(function(){
+    //   $('.bx-wrapper').addClass('animated fadeOut');
+    //   $('.wrapper').removeClass('hidden').addClass('bounceIn');
+    //   $('.footer-img').removeClass('hidden').addClass('bounceIn');
+    // });
+
     $('#sum').bind("DOMSubtreeModified",function(){
-      $('.bx-wrapper').addClass('animated fadeOut');
-    $('.wrapper').removeClass('hidden').addClass('bounceIn');
+     $('.bx-wrapper').addClass('animated fadeOut');
+     $('.wrapper').removeClass('hidden').addClass('bounceIn');
+     $('.footer-img').removeClass('hidden').addClass('bounceIn');
     });
   });
 
@@ -188,8 +196,10 @@ JS
 )
 ?>
 
-<img src="img/logo-lastefond.png" alt="" class="img-left-corner">
-<img src="img/content-flower.png" alt="" class="img-right-corner">
+<div class="footer-img hidden animated">
+  <img src="img/logo-lastefond.png" alt="" class="img-left-corner" height="130px">
+  <img src="img/content-flower.png" alt="" class="img-right-corner" height="130px">
+</div>
 
 <div class="modals">
   <div class="modal modal-error hidden">
