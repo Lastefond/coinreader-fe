@@ -158,6 +158,7 @@ $this->registerJs(<<<JS
     
     $.keyboard.keyaction.donate_anonymous = function(base){
       alert('Annetatud anonüümselt! Tänan!')
+      location.reload();
     };
 
     $('#keyboard').keyboard({
@@ -188,7 +189,7 @@ $this->registerJs(<<<JS
       'A S D F G H J K L Ö Ä',
       'Z X C V B N M - ',
       '{space}',
-      ' {donate_anonymous} {accept}'
+      '{donate_anonymous} {accept}'
       ]
     }
   });
