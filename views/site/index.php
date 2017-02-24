@@ -165,7 +165,7 @@ $this->registerJs(<<<JS
       validate: function(keyboard, value, isClosing){
         var regex_empty_two_chars = /\w{2,}/.test(value);
         if (!regex_empty_two_chars && isClosing) {
-          modalError();
+          alert('Palun sisesta nimi või anneta anonüümselt!')
         }
         return regex_empty_two_chars;
       },
