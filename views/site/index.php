@@ -148,7 +148,7 @@ $this->registerJs(<<<JS
     // }
     
     $.keyboard.keyaction.donate_anonymous = function(base){
-      modalError()
+      alert('Annetatud anonüümselt! Tänan!')
     };
 
     $('#keyboard').keyboard({
@@ -171,7 +171,7 @@ $this->registerJs(<<<JS
     accepted : function(event, keyboard, el) {
       var name  = el.value
       thankYouStep(name);
-      setTimeout(location.reload.bind(location), 60000);
+      setTimeout(location.reload.bind(location), 10000);
     },
     customLayout : {
       'normal': [
