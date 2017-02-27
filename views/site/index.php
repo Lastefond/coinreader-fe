@@ -209,6 +209,14 @@ JS
 </div>
 
 <ul class="bxslider">
+  <li>
+    <div class="box-total">
+      <div class="box-total-content">
+          Selle kastiga on kogutud <br />
+          <h1>25423.55€</h1>
+      </div>
+    </div>
+  </li>
   <li><img src="/img/slideshow/1.jpg" /></li>
   <li><img src="/img/slideshow/2.jpg" /></li>
 </ul>
