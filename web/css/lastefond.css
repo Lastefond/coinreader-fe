@@ -22,7 +22,7 @@ body{
   top:50%;
   left:50%;
   margin: -225px -600px;
-  background-image: url('../img/bg-content.jpg');
+  background-image: url('../img/bg-content.png');
   background-color: white;
   border-radius: 1em;
   border: solid 3px #f9d574;
@@ -88,6 +88,28 @@ body{
 
 .thank-you{
 
+}
+
+.bxslider .box-total{
+  background-color: #ffedbc;
+  background-image: url('../img/bg-content-purple.png');
+  height: 100vh;
+  top:50vh;
+  color: #5a42d7;
+}
+
+.bxslider .box-total .box-total-content{
+  width:100%;
+  text-shadow: -6px 0 #ffedbc, 0 6px #ffedbc, 6px 0 #ffedbc, 0 -6px #ffedbc;
+  position: absolute;
+  top: 50%;
+  text-align: center;
+  font-size: 60px;
+  margin-top: -104px;
+}
+
+.bxslider .box-total .box-total-content h1{
+  margin: 0;
 }
 
 .footer-img{
