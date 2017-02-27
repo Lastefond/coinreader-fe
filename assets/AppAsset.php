@@ -8,6 +8,7 @@
 namespace app\assets;
 
 use yii\web\AssetBundle;
+use yii\web\View;
 
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>
@@ -27,7 +28,7 @@ class AppAsset extends AssetBundle
         'js/jquery.bxslider/jquery.bxslider.css'
     ];
     public $js = [
-        'js/coinHandler.js',
+        ['js/coinHandler.js', 'position' => View::POS_HEAD],
         'js/jquery-latest.min.js',
         'js/jquery-ui.min.js',
         'js/jquery.keyboard.js',

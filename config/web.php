@@ -50,7 +50,7 @@ $config = [
                 '/' => 'site/index',
                 [
                     'class' => 'yii\rest\UrlRule',
-                    'controller' => ['coin'],
+                    'controller' => ['donator'],
                     'pluralize' => false,
                 ],
             ],

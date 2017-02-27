@@ -6,6 +6,30 @@ use yii\helpers\Url;
 
 $this->title = 'My Yii Application';
 $coinreaderUrl = Yii::$app->params['coinReader']['url'];
+$ajaxUrl = Url::to(['/donator']);
+
+$this->registerJs(<<<JS
+    var coinHandler = new CoinHandler('{$coinreaderUrl}','{$ajaxUrl}',{
+        1: 200,
+        2: 100,
+        3: 50,
+        4: 20,
+        5: 10,
+        6: 5
+    }, function(coins) {
+      alert(coins + ' has been added');
+      // coins is an array of coins
+      // TODO Airon, please update your ui here
+    });
+
+    // TODO Airon pls use this when you need to send coins
+    // coinHandler.sendCoins('Airon', function (data) {
+    //     alert('kthxbye!');
+    // });
+JS
+,\yii\web\View::POS_HEAD
+);
+
 $this->registerJs(<<<JS
 
   $(document).ready(function(){
@@ -15,7 +39,7 @@ $this->registerJs(<<<JS
       easing: 'ease-in-out',
       touchEnabled: false
     });
-    
+
     // $('.bxslider').click(function(){
     //   $('.bx-wrapper').addClass('animated fadeOut');
     //   $('.wrapper').removeClass('hidden').addClass('bounceIn');
@@ -28,86 +52,6 @@ $this->registerJs(<<<JS
      $('.footer-img').removeClass('hidden').addClass('bounceIn');
     });
   });
-
-
-    var socketUrl = '{$coinreaderUrl}';
-    var coins = [];
-    var sum = 0;
-    var coinMap = {
-        1: 200,
-        2: 100,
-        3: 50,
-        4: 20,
-        5: 10,
-        6: 5
-    };
-
-    var mapCoin = function (value) {
-        return coinMap[value] || 0;
-    };
-    
-    var resetCounters = function () {
-        coins = [];
-        sum = 0;
-        addCoin(0);
-    };
-    
-    var addCoin = function(coinValue) {
-        coins.push(coinValue);
-        sum += parseInt(coinValue);
-        var eur = sum / 100;
-        $('#sum').text(eur.toFixed(2) + ' €');
-    };
-
-    function start(websocketServerLocation){
-        var connection = new WebSocket(websocketServerLocation);
-
-        // When the connection is open, send some data to the server
-        connection.onopen = function () {
-
-        };
-
-        // Log errors on connection open
-        connection.onerror = function (error) {
-            
-        };
-
-        // Log messages from the server
-        connection.onmessage = function (e) {
-            addCoin(mapCoin(e.data));
-        };
-    }
-
-    start(socketUrl);
-    
-    $('body').on('submit', '#coinform', function (e) {
-        e.preventDefault();
-        var coinData = [];
-        coins.forEach(function (coin, idx) {
-            coinData[idx] = {coin_value: coin};
-        });
-
-        var formData = {
-            User: {
-                first_name: $('#f_name').val(),
-                last_name: $('#l_name').val()
-            },
-            Coin: coinData
-        };
-        
-        $.post( $('#coinform').attr('action'), formData, function( data, hue, xhr ) {
-            if (xhr.status == 200) {
-                resetCounters();
-            }
-            else if (xhr.status == 202) {
-                // TODO no coins entered
-                alert(data.message);
-            }
-        }).error(function(data) {
-            // TODO handle better
-            alert(data);
-        });
-    });
 
     $('.inserted-sum .next').click(function(){
       $('.sum').addClass('fadeOut');
@@ -137,9 +81,9 @@ $this->registerJs(<<<JS
      });
 
      function refresh() {
-       if(new Date().getTime() - time >= 6000) 
+       if(new Date().getTime() - time >= 6000)
          window.location.reload(true);
-       else 
+       else
          setTimeout(refresh, timeOutDuration);
      }
 
@@ -155,7 +99,7 @@ $this->registerJs(<<<JS
     //   $('.modal-error').removeClass('hidden');
     //   // timeOut();
     // }
-    
+
     $.keyboard.keyaction.donate_anonymous = function(base){
       alert('Annetatud anonüümselt! Tänan!')
       location.reload();
@@ -169,7 +113,7 @@ $this->registerJs(<<<JS
         }
         return regex_empty_two_chars;
       },
-     alwaysOpen:true,     
+     alwaysOpen:true,
      reposition : false,
      layout: 'custom',
      appendLocally: '.keyboard',
