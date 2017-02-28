@@ -7,11 +7,10 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
-        'redis' => [
-            'class' => 'yii\redis\Connection',
-            'hostname' => 'localhost',
-            'database' => 0,
-        ],
+        'sidekiq' => function () {
+            $redis = new Predis\Client('tcp://127.0.0.1:6379/0');
+            return new \SidekiqJob\Client($redis);
+        },
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'kX1HVYmx-QGBGYbeg_0dt4Inqy27Wcfw',

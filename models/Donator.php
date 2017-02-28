@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use SidekiqJob\Client;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\Json;
@@ -56,12 +57,18 @@ class Donator extends ActiveRecord
         return ['id', 'name', 'coins', 'timestamp'];
     }
 
-    public function beforeSave($insert)
+    public function save($runValidation = true, $attributeNames = null)
     {
-        if (!parent::beforeSave($insert)) {
+        if ($runValidation && !$this->validate($attributeNames)) {
             return false;
         }
+
         $this->coins = Json::encode($this->coins);
+
+        /** @var Client $sidekiq */
+        $sidekiq = Yii::$app->sidekiq;
+        $sidekiq->push('Donator', $this->getAttributes());
+
         return true;
     }
 }
