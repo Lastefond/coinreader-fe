@@ -2,10 +2,19 @@
 
 namespace app\controllers;
 
+use app\models\Donator;
 use Yii;
-use yii\rest\ActiveController;
+use yii\rest\Controller;
 
-class DonatorController extends ActiveController
+class DonatorController extends Controller
 {
-    public $modelClass = 'app\models\Donator';
+    public function actionCreate()
+    {
+        $donator = new Donator();
+        if ($donator->load(Yii::$app->request->post(), '')) {
+            $donator->push();
+        }
+
+        return $donator;
+    }
 }

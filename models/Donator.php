@@ -4,36 +4,21 @@ namespace app\models;
 
 use SidekiqJob\Client;
 use Yii;
-use yii\behaviors\TimestampBehavior;
+use yii\base\Model;
 use yii\helpers\Json;
-use yii\redis\ActiveRecord;
 
 /**
  * This is the model class for donators.
  *
- * @property integer $id
  * @property string $name
  * @property array $coins
- * @property integer $timestamp
  */
-class Donator extends ActiveRecord
+class Donator extends Model
 {
     const COIN_VALUES = [200,100,50,20,10,5];
 
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            [
-                'class' => TimestampBehavior::className(),
-                'createdAtAttribute' => 'timestamp',
-                'updatedAtAttribute' => false,
-                'value' => time(),
-            ]
-        ];
-    }
+    public $name;
+    public $coins;
 
     /**
      * @inheritdoc
@@ -45,7 +30,6 @@ class Donator extends ActiveRecord
             [['coins'], 'required'],
             [['coins'], 'each', 'rule' => ['integer']],
             [['coins'], 'each', 'rule' => ['in', 'range' => self::COIN_VALUES]],
-            [['timestamp'], 'safe'],
         ];
     }
 
@@ -54,21 +38,37 @@ class Donator extends ActiveRecord
      */
     public function attributes()
     {
-        return ['id', 'name', 'coins', 'timestamp'];
+        return ['name', 'coins'];
     }
 
-    public function save($runValidation = true, $attributeNames = null)
+    /**
+     * Pushes job to sidekiq
+     * @return bool
+     */
+    public function push()
     {
-        if ($runValidation && !$this->validate($attributeNames)) {
+        if (!isset(Yii::$app->params['coinReader']['boxId'])) {
+            throw new \InvalidArgumentException('box_id is missing');
+        }
+        if (!$this->validate()) {
             return false;
         }
 
         $this->coins = Json::encode($this->coins);
 
+        $payload = [
+            'box_id',
+            Yii::$app->params['coinReader']['boxId'],
+            'timestamp',
+            time(),
+        ];
+        foreach ($this->getAttributes() as $key => $val) {
+            $payload[] = $key;
+            $payload[] = $val;
+        }
+
         /** @var Client $sidekiq */
         $sidekiq = Yii::$app->sidekiq;
-        $sidekiq->push('Donator', $this->getAttributes());
-
-        return true;
+        return !!$sidekiq->push('Donator', $payload);
     }
 }
