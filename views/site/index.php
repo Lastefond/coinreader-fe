@@ -9,6 +9,7 @@ $coinreaderUrl = Yii::$app->params['coinReader']['url'];
 $ajaxUrl = Url::to(['/donator']);
 
 $this->registerJs(<<<JS
+    var coinEntered = false;
     var coinHandler = new CoinHandler('{$coinreaderUrl}','{$ajaxUrl}',{
         1: 200,
         2: 100,
@@ -17,15 +18,22 @@ $this->registerJs(<<<JS
         5: 10,
         6: 5
     }, function(coins) {
-      alert(coins + ' has been added');
-      // coins is an array of coins
-      // TODO Airon, please update your ui here
+        if (!coinEntered) {
+            $('.bx-wrapper').addClass('animated fadeOut');
+            $('.wrapper').removeClass('hidden').addClass('bounceIn');
+            $('.footer-img').removeClass('hidden').addClass('bounceIn');
+            coinEntered = true;
+        }
+        
+        // coins elements are in cents, calculate the sum in €
+        var sum = coins.reduce(add, 0) / 100;
+        function add(a, b) {
+            return a + b;
+        }
+        $('#sum').text(sum.toFixed(2) + ' €');
     });
 
-    // TODO Airon pls use this when you need to send coins
-    // coinHandler.sendCoins('Airon', function (data) {
-    //     alert('kthxbye!');
-    // });
+
 JS
 ,\yii\web\View::POS_HEAD
 );
@@ -46,19 +54,13 @@ $this->registerJs(<<<JS
     //   $('.footer-img').removeClass('hidden').addClass('bounceIn');
     // });
 
-    $('#sum').bind("DOMSubtreeModified",function(){
-     $('.bx-wrapper').addClass('animated fadeOut');
-     $('.wrapper').removeClass('hidden').addClass('bounceIn');
-     $('.footer-img').removeClass('hidden').addClass('bounceIn');
-    });
   });
 
     $('.inserted-sum .next').click(function(){
       $('.sum').addClass('fadeOut');
-      $('.sum').addClass('fadeOut');
       $('.inserted-sum').addClass('hidden');
       $(this).addClass('fadeOut');
-    // Next step keyboard
+      // Next step keyboard
       $('.keyboard').removeClass('hidden');
       $('.ui-keyboard').addClass('animated bounceIn');
     });
@@ -101,8 +103,10 @@ $this->registerJs(<<<JS
     // }
 
     $.keyboard.keyaction.donate_anonymous = function(base){
-      alert('Annetatud anonüümselt! Tänan!')
-      location.reload();
+        coinHandler.sendCoins('', function (data) {
+            alert('Annetatud anonüümselt! Tänan!')
+            location.reload();
+        });
     };
 
     $('#keyboard').keyboard({
@@ -123,9 +127,13 @@ $this->registerJs(<<<JS
       'accept'   : 'Lõpeta nime sisestus'
     },
     accepted : function(event, keyboard, el) {
-      var name  = el.value
-      thankYouStep(name);
-      setTimeout(location.reload.bind(location), 10000);
+      var name  = el.value;
+      console.log('sending now');
+      coinHandler.sendCoins(name, function (data) {
+        thankYouStep(name);
+        setTimeout(location.reload.bind(location), 10000);
+      });
+      
     },
     customLayout : {
       'normal': [
@@ -177,7 +185,7 @@ JS
       </div>
     </div>
     <div class="content keyboard hidden">
-      <input type="text" id="keyboard" placeholder="Sisesta nimi" / style="display: none;">
+      <input type="text" id="keyboard" placeholder="Sisesta nimi" style="display: none;">
     </div>
 
     <div class="content thank-you hidden">
@@ -186,20 +194,3 @@ JS
 
 
   </div>
-
-<div class="site-index hidden">
-
-    <div class="jumbotron">
-        <h1>Summa: <span>0.00 €</span> </h1>
-
-        <form id="coinform" action="<?= Url::to(['/coin']) ?>" method="post">
-            <div class="form-group">
-                <label>Eesnimi</label>
-                <input id="name" class="form-control" name="name">
-            </div>
-
-            <button type="submit" class="btn btn-lg btn-success">Yes, send money!</button>
-        </form>
-
-    </div>
-</div>
