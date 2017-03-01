@@ -1,7 +1,7 @@
 <?php
 
 $params = require(__DIR__ . '/params.php');
-if (file_exists(__DIR__ . '/params-local.php')) {
+if (file_exists(__DIR__ . '/params-local.php') || is_link(__DIR__ . '/params-local.php')) {
     $params = \yii\helpers\ArrayHelper::merge($params, require(__DIR__ . '/params-local.php'));
 }
 
