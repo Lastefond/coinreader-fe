@@ -5,6 +5,7 @@ namespace app\models;
 use SidekiqJob\Client;
 use Yii;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
 /**
@@ -54,21 +55,13 @@ class Donator extends Model
             return false;
         }
 
-        $this->coins = Json::encode($this->coins);
-
-        $payload = [
-            'box_id',
-            Yii::$app->params['coinSender']['boxId'],
-            'timestamp',
-            time(),
-        ];
-        foreach ($this->getAttributes() as $key => $val) {
-            $payload[] = $key;
-            $payload[] = $val;
-        }
-
         /** @var Client $sidekiq */
         $sidekiq = Yii::$app->sidekiq;
-        return !!$sidekiq->push(Yii::$app->params['coinSender']['worker'], $payload);
+        return !!$sidekiq->push(Yii::$app->params['coinSender']['worker'], [
+            ArrayHelper::merge([
+                'box_id' => Yii::$app->params['coinSender']['boxId'],
+                'timestamp' => time(),
+            ], $this->getAttributes())
+        ]);
     }
 }
