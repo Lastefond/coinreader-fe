@@ -47,7 +47,7 @@ class Donator extends Model
      */
     public function push()
     {
-        if (!isset(Yii::$app->params['coinReader']['boxId'])) {
+        if (!isset(Yii::$app->params['coinSender']['boxId'])) {
             throw new \InvalidArgumentException('box_id is missing');
         }
         if (!$this->validate()) {
@@ -58,7 +58,7 @@ class Donator extends Model
 
         $payload = [
             'box_id',
-            Yii::$app->params['coinReader']['boxId'],
+            Yii::$app->params['coinSender']['boxId'],
             'timestamp',
             time(),
         ];
@@ -69,6 +69,6 @@ class Donator extends Model
 
         /** @var Client $sidekiq */
         $sidekiq = Yii::$app->sidekiq;
-        return !!$sidekiq->push('Donator', $payload);
+        return !!$sidekiq->push(Yii::$app->params['coinSender']['worker'], $payload);
     }
 }
