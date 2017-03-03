@@ -109,6 +109,9 @@ $this->registerJs(<<<JS
       });
       
     },
+    change: function () {
+          restartCoinTimeout();
+    },
     customLayout : {
       'normal': [
       'Q W E R T Y U I O P Ü Õ {b}',
@@ -167,7 +170,6 @@ $this->registerJs(<<<JS
     $('body').on('touchstart touchend', function() {
         restartCoinTimeout();
     });
-
 
 JS
 ,\yii\web\View::POS_READY
