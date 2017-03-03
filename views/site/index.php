@@ -210,6 +210,9 @@ JS
     <div class="content thank-you hidden">
       <p>Tänan<span class="donator-name"></span>!</p>
         <p>Summa: <span id="ty_sum"></span></p>
+        <div class="button animated fadeIn next" onclick="window.location.reload(true)">
+            Alusta uut annetamist
+        </div>
     </div>
 
 
