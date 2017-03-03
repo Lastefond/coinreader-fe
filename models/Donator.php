@@ -55,6 +55,10 @@ class Donator extends Model
             return false;
         }
 
+        array_walk($this->coins, function (&$coin) {
+            $coin = (int) $coin;
+        });
+
         /** @var Client $sidekiq */
         $sidekiq = Yii::$app->sidekiq;
         return !!$sidekiq->push(Yii::$app->params['coinSender']['worker'], [
