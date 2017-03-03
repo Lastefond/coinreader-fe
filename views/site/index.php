@@ -9,39 +9,7 @@ $coinreaderUrl = Yii::$app->params['coinReader']['url'];
 $ajaxUrl = Url::to(['/donator']);
 
 $this->registerJs(<<<JS
-    var coinEntered = false;
-    var coinHandler = new CoinHandler('{$coinreaderUrl}','{$ajaxUrl}',{
-        1: 200,
-        2: 100,
-        3: 50,
-        4: 20,
-        5: 10,
-        6: 5
-    }, function(coins) {
-        if (!coinEntered) {
-            $('.bx-wrapper').addClass('animated fadeOut');
-            $('.wrapper').removeClass('hidden').addClass('bounceIn');
-            $('.footer-img').removeClass('hidden').addClass('bounceIn');
-            coinEntered = true;
-        }
-        
-        // coins elements are in cents, calculate the sum in €
-        var sum = coins.reduce(add, 0) / 100;
-        function add(a, b) {
-            return a + b;
-        }
-        $('#sum').text(sum.toFixed(2) + ' €');
-        $('#ty_sum').text(sum.toFixed(2) + ' €');
-    });
 
-
-JS
-,\yii\web\View::POS_HEAD
-);
-
-$this->registerJs(<<<JS
-
-  $(document).ready(function(){
     $('.bxslider').bxSlider({
       auto: true,
       controls: false,
@@ -55,7 +23,6 @@ $this->registerJs(<<<JS
     //   $('.footer-img').removeClass('hidden').addClass('bounceIn');
     // });
 
-  });
 
     $('.inserted-sum .next').click(function(){
       $('.sum').addClass('fadeOut');
@@ -68,14 +35,16 @@ $this->registerJs(<<<JS
 
 
     function thankYouStep(name){
+        $('.inserted-sum').addClass('hidden');
       $('.keyboard').addClass('fadeOut hidden');
       $('.ui-keyboard').addClass('fadeOut');
     // Next step keyboard
       $('.thank-you').removeClass('hidden');
+      $('.thank-you p').addClass('animated bounceIn');
+      
       if (name) {
         $('.thank-you .donator-name').html(' ' + name);
       }
-      $('.thank-you p').addClass('animated bounceIn');
     }
 
     function timeOut(){
@@ -107,6 +76,7 @@ $this->registerJs(<<<JS
 
     $.keyboard.keyaction.donate_anonymous = function(base){
         coinHandler.sendCoins('Anonüümne', function (data) {
+            clearCoinTimeout();
             thankYouStep(null);
             setTimeout(location.reload.bind(location), 10000);
         });
@@ -133,6 +103,7 @@ $this->registerJs(<<<JS
       var name  = el.value;
       console.log('sending now');
       coinHandler.sendCoins(name, function (data) {
+          clearCoinTimeout();
         thankYouStep(name);
         setTimeout(location.reload.bind(location), 10000);
       });
@@ -148,8 +119,53 @@ $this->registerJs(<<<JS
       ]
     }
   });
+
+    var sendAnonTimeout ;
+    var coinEntered = false;
+    var coinHandler = new CoinHandler('{$coinreaderUrl}','{$ajaxUrl}',{
+        1: 200,
+        2: 100,
+        3: 50,
+        4: 20,
+        5: 10,
+        6: 5
+    }, function(coins) {
+        if (!coinEntered) {
+            $('.bx-wrapper').addClass('animated fadeOut');
+            $('.wrapper').removeClass('hidden').addClass('bounceIn');
+            $('.footer-img').removeClass('hidden').addClass('bounceIn');
+            coinEntered = true;
+        }
+        clearCoinTimeout();
+       
+        sendAnonTimeout = setTimeout(function() {
+            coinHandler.sendCoins('Anonüümne', function (data) {
+                thankYouStep(null);
+                setTimeout(location.reload.bind(location), 10000);
+            });
+        }, 10000);
+        
+        // coins elements are in cents, calculate the sum in €
+        var sum = coins.reduce(add, 0) / 100;
+        function add(a, b) {
+            return a + b;
+        }
+        $('#sum').text(sum.toFixed(2) + ' €');
+        $('#ty_sum').text(sum.toFixed(2) + ' €');
+    });
+    
+    var clearCoinTimeout = function () {
+        if (sendAnonTimeout) {
+            clearTimeout(sendAnonTimeout);
+        }
+    }
+
+
 JS
-)
+,\yii\web\View::POS_READY
+);
+
+
 ?>
 
 <div class="footer-img hidden animated">
