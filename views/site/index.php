@@ -9,10 +9,6 @@ $coinreaderUrl = Yii::$app->params['coinReader']['url'];
 $ajaxUrl = Url::to(['/donator']);
 
 $this->registerJs(<<<JS
-
-    $('body').on('touchstart touchend', function() {
-        clearCoinTimeout();
-    });
         
     $('.bxslider').bxSlider({
       auto: true,
@@ -124,7 +120,7 @@ $this->registerJs(<<<JS
     }
   });
 
-    var sendAnonTimeout ;
+    var sendAnonTimeout;
     var coinEntered = false;
     var coinHandler = new CoinHandler('{$coinreaderUrl}','{$ajaxUrl}',{
         1: 200,
@@ -140,14 +136,7 @@ $this->registerJs(<<<JS
             $('.footer-img').removeClass('hidden').addClass('bounceIn');
             coinEntered = true;
         }
-        clearCoinTimeout();
-       
-        sendAnonTimeout = setTimeout(function() {
-            coinHandler.sendCoins('Anonüümne', function (data) {
-                thankYouStep(null);
-                setTimeout(location.reload.bind(location), 10000);
-            });
-        }, 10000);
+        restartCoinTimeout();
         
         // coins elements are in cents, calculate the sum in €
         var sum = coins.reduce(add, 0) / 100;
@@ -163,6 +152,21 @@ $this->registerJs(<<<JS
             clearTimeout(sendAnonTimeout);
         }
     }
+    
+    var restartCoinTimeout = function () {
+        clearCoinTimeout();
+       
+        sendAnonTimeout = setTimeout(function() {
+            coinHandler.sendCoins('Anonüümne', function (data) {
+                thankYouStep(null);
+                setTimeout(location.reload.bind(location), 10000);
+            });
+        }, 10000);
+    }
+    
+    $('body').on('touchstart touchend', function() {
+        restartCoinTimeout();
+    });
 
 
 JS
