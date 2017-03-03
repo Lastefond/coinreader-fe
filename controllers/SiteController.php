@@ -2,15 +2,12 @@
 
 namespace app\controllers;
 
-use app\models\CoinLog;
-use app\models\User;
+use GuzzleHttp\Client;
 use Yii;
 use yii\filters\AccessControl;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
 
 class SiteController extends Controller
 {
@@ -63,6 +60,28 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('index', ['donations_sum' => $this->getDonationsSum()]);
+    }
+
+    private function getDonationsSum()
+    {
+        $boxId = Yii::$app->params['coinSender']['boxId'];
+        if (!empty($boxId)) {
+            return 0;
+        }
+
+        $client = new Client();
+        try {
+            $res = $client->get(strtr('https://lastefond.cariba.ee/boxes/{box_id}.json', ['{box_id}' => $boxId]));
+            $box = Json::decode($res->getBody()->getContents(), false);
+            if (!!$box->donations_sum) {
+                Yii::$app->cache->set('donations_sum', $box->donations_sum, 999999999);
+            }
+        } catch (\Exception $e) {
+            // handle gracefully
+            Yii::$app->errorHandler->logException($e);
+        }
+
+        return (int) Yii::$app->cache->get('donations_sum');
     }
 }

@@ -31,6 +31,7 @@ $this->registerJs(<<<JS
             return a + b;
         }
         $('#sum').text(sum.toFixed(2) + ' €');
+        $('#ty_sum').text(sum.toFixed(2) + ' €');
     });
 
 
@@ -71,7 +72,9 @@ $this->registerJs(<<<JS
       $('.ui-keyboard').addClass('fadeOut');
     // Next step keyboard
       $('.thank-you').removeClass('hidden');
-      $('.thank-you .donator-name').html(name);
+      if (name) {
+        $('.thank-you .donator-name').html(' ' + name);
+      }
       $('.thank-you p').addClass('animated bounceIn');
     }
 
@@ -103,9 +106,9 @@ $this->registerJs(<<<JS
     // }
 
     $.keyboard.keyaction.donate_anonymous = function(base){
-        coinHandler.sendCoins('', function (data) {
-            alert('Annetatud anonüümselt! Tänan!')
-            location.reload();
+        coinHandler.sendCoins('Anonüümne', function (data) {
+            thankYouStep(null);
+            setTimeout(location.reload.bind(location), 10000);
         });
     };
 
@@ -165,7 +168,7 @@ JS
     <div class="box-total">
       <div class="box-total-content">
           Selle kastiga on kogutud <br />
-          <h1>25423.55€</h1>
+          <h1><?= Yii::$app->formatter->asDecimal($donations_sum, 2) ?> €</h1>
       </div>
     </div>
   </li>
@@ -189,7 +192,8 @@ JS
     </div>
 
     <div class="content thank-you hidden">
-      <p>Tänan <span class="donator-name"></span>!</p>
+      <p>Tänan<span class="donator-name"></span>!</p>
+        <p>Summa: <span id="ty_sum"></span></p>
     </div>
 
 
