@@ -10,6 +10,10 @@ $ajaxUrl = Url::to(['/donator']);
 
 $this->registerJs(<<<JS
 
+    $('body').on('touchstart touchend', function() {
+        clearCoinTimeout();
+    });
+        
     $('.bxslider').bxSlider({
       auto: true,
       controls: false,
