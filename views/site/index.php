@@ -193,7 +193,7 @@ JS
   <li>
     <div class="box-total">
       <div class="box-total-content">
-          Selle kastiga on kogutud <br />
+          See on uus tekst :) Selle kastiga on kogutud <br />
           <h1><?= Yii::$app->formatter->asDecimal($donations_sum, 2) ?> €</h1>
       </div>
     </div>
