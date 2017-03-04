@@ -63,6 +63,17 @@ class SiteController extends Controller
         return $this->render('index', ['donations_sum' => $this->getDonationsSum()]);
     }
 
+    public function actionReboot()
+    {
+        try {
+            $boxId = Yii::$app->params['coinSender']['boxId'] ?: '(not set)';
+            Yii::$app->errorHandler->logException(new \Exception('Box going for reboot due to coinreader offline. Box ID: ' . $boxId));
+        } catch (\Exception $e) {
+
+        }
+        shell_exec('sudo /sbin/shutdown -r now');
+    }
+
     private function getDonationsSum()
     {
         $boxId = Yii::$app->params['coinSender']['boxId'];
