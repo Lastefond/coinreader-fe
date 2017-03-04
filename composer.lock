@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5cffa6ba98df5d1852ab2aa80e19b166",
-    "content-hash": "373781913e1a37a5f8969393ade4a1c0",
+    "hash": "404dfa5bfbb2af1f155a5ca4f9508a95",
+    "content-hash": "12fa1760fb4c6f04e22b986da3123241",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -483,6 +483,114 @@
                 "url"
             ],
             "time": "2017-02-27 10:51:17"
+        },
+        {
+            "name": "nkovacs/errbit-php",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nkovacs/errbitPHP.git",
+                "reference": "49eb270995c1b2c48ae9f00eaa23f549f3490836"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nkovacs/errbitPHP/zipball/49eb270995c1b2c48ae9f00eaa23f549f3490836",
+                "reference": "49eb270995c1b2c48ae9f00eaa23f549f3490836",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "replace": {
+                "flippa-official/errbit-php": "dev-master",
+                "nodrew/php-airbrake": "dev-master"
+            },
+            "require-dev": {
+                "mockery/mockery": "dev-master",
+                "phpunit/phpcov": "2.0.*@dev",
+                "phpunit/phpunit": "4.*",
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Errbit\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "emgiezet"
+                },
+                {
+                    "name": "flippa"
+                },
+                {
+                    "name": "karolsojko"
+                },
+                {
+                    "name": "deathowl"
+                }
+            ],
+            "description": "errbit/airbrake integration with php with psr-2",
+            "homepage": "http://github.com/emgiezet/errbitPHP",
+            "keywords": [
+                "airbrake",
+                "errbit",
+                "errbit php",
+                "error tracking"
+            ],
+            "time": "2014-12-03 12:25:11"
+        },
+        {
+            "name": "nkovacs/yii2-errbit",
+            "version": "0.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nkovacs/yii2-errbit.git",
+                "reference": "ee8c9c43c3366d46447108f41a6b4610c9ee9f09"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nkovacs/yii2-errbit/zipball/ee8c9c43c3366d46447108f41a6b4610c9ee9f09",
+                "reference": "ee8c9c43c3366d46447108f41a6b4610c9ee9f09",
+                "shasum": ""
+            },
+            "require": {
+                "nkovacs/errbit-php": "~1.0.5",
+                "yiisoft/yii2": "~2.0.4"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "nkovacs\\errbit\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nikola Kovacs",
+                    "email": "nikola.kovacs@gmail.com"
+                }
+            ],
+            "description": "Logs errors to [errbit](https://github.com/errbit/errbit)",
+            "keywords": [
+                "errbit",
+                "extension",
+                "yii2"
+            ],
+            "time": "2015-06-01 14:26:16"
         },
         {
             "name": "predis/predis",
