@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 /* @var $this yii\web\View */
 
@@ -9,6 +9,10 @@ $coinreaderUrl = Yii::$app->params['coinReader']['url'];
 $ajaxUrl = Url::to(['/donator']);
 
 $this->registerJs(<<<JS
+
+    var sendAnonTimeout;
+    var reloadTimeout;
+    var coinEntered = false;
         
     $('.bxslider').bxSlider({
       auto: true,
@@ -29,8 +33,9 @@ $this->registerJs(<<<JS
       $('.inserted-sum').addClass('hidden');
       $(this).addClass('fadeOut');
       // Next step keyboard
-      $('.keyboard').removeClass('hidden');
+      $('.keyboard').removeClass('fadeOut hidden');
       $('.ui-keyboard').addClass('animated bounceIn');
+      $('.ui-keyboard').removeClass('fadeOut');
     });
 
 
@@ -41,6 +46,8 @@ $this->registerJs(<<<JS
     // Next step keyboard
       $('.thank-you').removeClass('hidden');
       $('.thank-you p').addClass('animated bounceIn');
+      
+      coinEntered = false;
       
       if (name) {
         $('.thank-you .donator-name').html(' ' + name);
@@ -78,7 +85,7 @@ $this->registerJs(<<<JS
         coinHandler.sendCoins('Anonüümne', function (data) {
             clearCoinTimeout();
             thankYouStep(null);
-            setTimeout(location.reload.bind(location), 10000);
+            reloadTimeout = setTimeout(location.reload.bind(location), 10000);
         });
     };
 
@@ -105,7 +112,8 @@ $this->registerJs(<<<JS
       coinHandler.sendCoins(name, function (data) {
           clearCoinTimeout();
         thankYouStep(name);
-        setTimeout(location.reload.bind(location), 10000);
+        el.value = ''; // reset name input
+        reloadTimeout = setTimeout(location.reload.bind(location), 10000);
       });
       
     },
@@ -123,8 +131,6 @@ $this->registerJs(<<<JS
     }
   });
 
-    var sendAnonTimeout;
-    var coinEntered = false;
     var coinHandler = new CoinHandler('{$coinreaderUrl}','{$ajaxUrl}',{
         1: 200,
         2: 100,
@@ -133,12 +139,21 @@ $this->registerJs(<<<JS
         5: 10,
         6: 5
     }, function(coins) {
+        $('.sum').removeClass('fadeOut');
+        $('.inserted-sum').removeClass('hidden');
+        $('.keyboard').addClass('hidden');
+        $('.ui-keyboard').removeClass('animated bounceIn');
+
+        $('.next').removeClass('fadeOut');
         if (!coinEntered) {
-            $('.bx-wrapper').addClass('animated fadeOut');
+            $('.thank-you').addClass('hidden');
             $('.wrapper').removeClass('hidden').addClass('bounceIn');
+            $('.bx-wrapper').addClass('animated fadeOut');
             $('.footer-img').removeClass('hidden').addClass('bounceIn');
+            
             coinEntered = true;
         }
+        clearTimeout(reloadTimeout);
         restartCoinTimeout();
         
         // coins elements are in cents, calculate the sum in €
@@ -162,9 +177,9 @@ $this->registerJs(<<<JS
         sendAnonTimeout = setTimeout(function() {
             coinHandler.sendCoins('Anonüümne', function (data) {
                 thankYouStep(null);
-                setTimeout(location.reload.bind(location), 10000);
+                reloadTimeout = setTimeout(location.reload.bind(location), 10000);
             });
-        }, 10000);
+        }, 20000);
     }
     
     $('body').on('touchstart touchend', function() {
@@ -220,9 +235,9 @@ JS
     <div class="content thank-you hidden">
       <p>Tänan<span class="donator-name"></span>!</p>
         <p>Summa: <span id="ty_sum"></span></p>
-        <div class="button animated fadeIn next" onclick="window.location.reload(true)">
+        <a class="button animated fadeIn next" id="newDonationButton" href="<?= Url::to(['/']) ?>">
             Alusta uut annetamist
-        </div>
+        </a>
     </div>
 
 
