@@ -81,14 +81,6 @@ $this->registerJs(<<<JS
     //   // timeOut();
     // }
 
-    $.keyboard.keyaction.donate_anonymous = function(base){
-        coinHandler.sendCoins('Anonüümne', function (data) {
-            clearCoinTimeout();
-            thankYouStep(null);
-            reloadTimeout = setTimeout(location.reload.bind(location), 10000);
-        });
-    };
-
     $('#keyboard').keyboard({
       validate: function(keyboard, value, isClosing){
         var regex_empty_two_chars = /\w{2,}/.test(value);
@@ -103,7 +95,7 @@ $this->registerJs(<<<JS
      appendLocally: '.keyboard',
      stickyShift: false,
      display: {
-      'donate_anonymous' : 'Anonüümne annetus',
+      'cancel' : 'Anonüümne annetus',
       'accept'   : 'Lõpeta nime sisestus'
     },
     accepted : function(event, keyboard, el) {
@@ -117,6 +109,13 @@ $this->registerJs(<<<JS
       });
       
     },
+    canceled : function(event, keyboard, el) {
+      coinHandler.sendCoins('Anonüümne', function (data) {
+        clearCoinTimeout();
+        thankYouStep(null);
+        reloadTimeout = setTimeout(location.reload.bind(location), 10000);
+      });
+    },
     change: function () {
           restartCoinTimeout();
     },
@@ -126,7 +125,7 @@ $this->registerJs(<<<JS
       'A S D F G H J K L Ö Ä',
       'Z X C V B N M - ',
       '{space}',
-      '{donate_anonymous} {accept}'
+      '{cancel} {accept}'
       ]
     }
   });
