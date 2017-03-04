@@ -18,11 +18,15 @@
 }
 
 .ui-keyboard-button {
-  height: 70px;
-  width: 70px;
+  height: 65px;
+  width: 65px;
   margin: 10px;
-  line-height: 70px;
+  line-height: 65px;
   -moz-user-focus: ignore;
+}
+
+.ui-keyboard-bksp{
+  width: 130px
 }
 
 .ui-keyboard-space{
