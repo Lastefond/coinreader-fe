@@ -7,6 +7,7 @@ return [
     ],
     'coinSender' => [
         'boxId' => getenv('BOX_ID') ?: null, # please define in local config
+        'apiUrl' => 'https://lastefond.cariba.ee/',
         'worker' => 'SendCoinsWorker',
     ],
 ];
