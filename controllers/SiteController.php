@@ -60,6 +60,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        die('testing update');
         return $this->render('index', ['donations_sum' => $this->getDonationsSum()]);
     }
 
