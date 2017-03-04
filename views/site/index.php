@@ -7,6 +7,7 @@ use yii\helpers\Url;
 $this->title = 'My Yii Application';
 $coinreaderUrl = Yii::$app->params['coinReader']['url'];
 $ajaxUrl = Url::to(['/donator']);
+$restartUrl = Url::to(['/'] . 'reboot.php');
 
 $this->registerJs(<<<JS
 
@@ -130,7 +131,7 @@ $this->registerJs(<<<JS
     }
   });
 
-    var coinHandler = new CoinHandler('{$coinreaderUrl}','{$ajaxUrl}',{
+    var coinHandler = new CoinHandler('{$coinreaderUrl}','{$ajaxUrl}', '{$restartUrl}',{
         1: 200,
         2: 100,
         3: 50,

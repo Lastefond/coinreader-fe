@@ -1,10 +1,12 @@
 ;(function (global) {
-    var CoinHandler = function(wsLocation, ajaxUrl, coinmap, coinAddedCallback) {
+    var CoinHandler = function(wsLocation, ajaxUrl, restartUrl, coinmap, coinAddedCallback) {
         this.wsLocation = wsLocation;
         this.callback = coinAddedCallback;
         this.coinMap = coinmap;
         this.ajaxUrl = ajaxUrl;
+        this.restartUrl = restartUrl;
         this.coins = [];
+        this._retries = 10;
         this._ws;
 
         this.init();
@@ -21,8 +23,13 @@
         this._ws.onclose = this.tryConnect.bind(this);
     };
     CoinHandler.prototype.tryConnect = function () {
+        if (this._retries <= 0) {
+            // reboot here
+            $.get(this.restartUrl);
+        }
         setTimeout(CoinHandler.prototype.startWs.bind(this), 10000);
         console.error('error connecting to socket, reconnecting in 10 seconds');
+        this._retries--;
     };
     CoinHandler.prototype.addCoin = function (coin) {
         this.coins.push(this.mapCoin(coin));
