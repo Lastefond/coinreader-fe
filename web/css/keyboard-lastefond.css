@@ -51,7 +51,7 @@ button{
 
 
 /* Custom button sizes */ 
-.ui-keyboard-accept, .ui-keyboard-donate_anonymous{
+.ui-keyboard-accept, .ui-keyboard-cancel{
   width: 190px;
   margin-top: 40px;
 }
