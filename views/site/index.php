@@ -86,7 +86,16 @@ $this->registerJs(<<<JS
       validate: function(keyboard, value, isClosing){
         var regex_empty_two_chars = /\w{2,}/.test(value);
         if (!regex_empty_two_chars && isClosing) {
-          alert('Palun sisesta nimi või anneta anonüümselt!')
+          swal({
+            title: "Nimi ei ole sisestatud",
+            text: "Palun sisesta nimi või anneta anonüümselt",
+            type: "warning",
+            confirmButtonColor: "#5a42d7",
+            confirmButtonText: "Olgu!",
+            closeOnConfirm: false,
+            animation: "slide-from-top",
+            timer:10000
+          });
         }
         return regex_empty_two_chars;
       },
@@ -229,6 +238,9 @@ JS
       </div>
     </div>
     <div class="content keyboard hidden">
+      <!-- <div class="button animated fadeIn total-sum">
+        12102012 €
+      </div> -->
       <input type="text" id="keyboard" placeholder="Sisesta nimi" style="display: none;">
     </div>
 

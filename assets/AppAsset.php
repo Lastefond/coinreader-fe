@@ -20,18 +20,20 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
-        'css/lastefond.css',
         'css/keyboard.css',
         'css/keyboard-previewkeyset.css',
         'css/keyboard-lastefond.css',
         'css/animations.css',
-        'js/jquery.bxslider/jquery.bxslider.css'
+        'css/sweetalert.css',
+        'js/jquery.bxslider/jquery.bxslider.css',
+        'css/lastefond.css',
     ];
     public $js = [
         ['js/coinHandler.js', 'position' => View::POS_HEAD],
         'js/jquery-latest.min.js',
         'js/jquery-ui.min.js',
         'js/jquery.keyboard.js',
+        'js/sweetalert.min.js',
         'js/jquery.bxslider/jquery.bxslider.min.js'
     ];
     public $depends = [
