@@ -22,11 +22,11 @@ $this->registerJs(<<<JS
       touchEnabled: false
     });
 
-    // $('.bxslider').click(function(){
-    //   $('.bx-wrapper').addClass('animated fadeOut');
-    //   $('.wrapper').removeClass('hidden').addClass('bounceIn');
-    //   $('.footer-img').removeClass('hidden').addClass('bounceIn');
-    // });
+     // $('.bxslider').click(function(){
+     //   $('.bx-wrapper').addClass('animated fadeOut');
+     //   $('.wrapper').removeClass('hidden').addClass('bounceIn');
+     //   $('.footer-img').removeClass('hidden').addClass('bounceIn');
+     // });
 
 
     $('.inserted-sum .next').click(function(){
@@ -205,14 +205,14 @@ JS
 </div>
 
 <ul class="bxslider">
-  <li>
+  <!-- <li>
     <div class="box-total">
       <div class="box-total-content">
           Selle kastiga on kogutud <br />
           <h1><?= Yii::$app->formatter->asDecimal($donations_sum, 2) ?> €</h1>
       </div>
     </div>
-  </li>
+  </li> -->
   <li><img src="/img/slideshow/1.jpg" /></li>
   <li><img src="/img/slideshow/2.jpg" /></li>
 </ul>
