@@ -222,7 +222,7 @@ JS
       </div>
     </div>
   </li> -->
-  <li><img src="/img/slideshow/1.jpg" /></li>
+  <li><img src="/img/slideshow/1.gif" /></li>
   <li><img src="/img/slideshow/2.jpg" /></li>
 </ul>
 
