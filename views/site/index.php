@@ -14,7 +14,7 @@ $this->registerJs(<<<JS
     var sendAnonTimeout;
     var reloadTimeout;
     var coinEntered = false;
-        
+
     $('.bxslider').bxSlider({
       auto: true,
       controls: false,
@@ -47,9 +47,9 @@ $this->registerJs(<<<JS
     // Next step keyboard
       $('.thank-you').removeClass('hidden');
       $('.thank-you p').addClass('animated bounceIn');
-      
+
       coinEntered = false;
-      
+
       if (name) {
         $('.thank-you .donator-name').html(' ' + name);
       }
@@ -117,7 +117,7 @@ $this->registerJs(<<<JS
         el.value = ''; // reset name input
         reloadTimeout = setTimeout(location.reload.bind(location), 10000);
       });
-      
+
     },
     canceled : function(event, keyboard, el) {
       coinHandler.sendCoins('Anonüümne', function (data) {
@@ -159,12 +159,12 @@ $this->registerJs(<<<JS
             $('.wrapper').removeClass('hidden').addClass('bounceIn');
             $('.bx-wrapper').addClass('animated fadeOut');
             $('.footer-img').removeClass('hidden').addClass('bounceIn');
-            
+
             coinEntered = true;
         }
         clearTimeout(reloadTimeout);
         restartCoinTimeout();
-        
+
         // coins elements are in cents, calculate the sum in €
         var sum = coins.reduce(add, 0) / 100;
         function add(a, b) {
@@ -173,16 +173,16 @@ $this->registerJs(<<<JS
         $('#sum').text(sum.toFixed(2) + ' €');
         $('#ty_sum').text(sum.toFixed(2) + ' €');
     });
-    
+
     var clearCoinTimeout = function () {
         if (sendAnonTimeout) {
             clearTimeout(sendAnonTimeout);
         }
     }
-    
+
     var restartCoinTimeout = function () {
         clearCoinTimeout();
-       
+
         sendAnonTimeout = setTimeout(function() {
             coinHandler.sendCoins('Anonüümne', function (data) {
                 thankYouStep(null);
@@ -190,7 +190,7 @@ $this->registerJs(<<<JS
             });
         }, 20000);
     }
-    
+
     $('body').on('touchstart touchend', function() {
         restartCoinTimeout();
     });
@@ -214,16 +214,22 @@ JS
 </div>
 
 <ul class="bxslider">
-  <!-- <li>
-    <div class="box-total">
-      <div class="box-total-content">
-          Selle kastiga on kogutud <br />
-          <h1><?= Yii::$app->formatter->asDecimal($donations_sum, 2) ?> €</h1>
-      </div>
-    </div>
-  </li> -->
-  <li><img src="/img/slideshow/1.jpg" /></li>
-  <li><img src="/img/slideshow/2.jpg" /></li>
+  <li>
+    <img src="/img/slideshow/1.jpg">
+  </li>
+  <li>
+    <video width="1280" height="800">
+      <source src="/video/1.mp4" type="video/mp4">
+    </video>
+  </li>
+  <li>
+    <img src="/img/slideshow/2.jpg">
+  </li>
+  <li>
+    <video width="1280" height="800">
+      <source src="/video/2.mp4" type="video/mp4">
+    </video>
+  </li>
 </ul>
 
 
@@ -234,7 +240,7 @@ JS
       </div>
       <div id="sum" class="sum animated bounceIn">0.00 €</div>
       <div class="button animated fadeIn next">
-        Lõpeta sisestamine  
+        Lõpeta sisestamine
       </div>
     </div>
     <div class="content keyboard hidden">

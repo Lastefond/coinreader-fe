@@ -24,7 +24,7 @@
     tickerHover: false,
     adaptiveHeight: false,
     adaptiveHeightSpeed: 500,
-    video: false,
+    video: true,
     useCSS: true,
     preloadImages: 'visible',
     responsive: true,
@@ -67,7 +67,7 @@
 
     // AUTO
     auto: false,
-    pause: 4000,
+    pause: 10000,
     autoStart: true,
     autoDirection: 'next',
     stopAutoOnClick: false,
@@ -84,7 +84,10 @@
 
     // CALLBACKS
     onSliderLoad: function() { return true; },
-    onSlideBefore: function() { return true; },
+    onSlideBefore: function(currentIndex, oldIndex) {
+      $(currentIndex).children('video').trigger("play");
+      $(oldIndex).children('video').trigger("stop");
+    },
     onSlideAfter: function() { return true; },
     onSlideNext: function() { return true; },
     onSlidePrev: function() { return true; },

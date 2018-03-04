@@ -34,7 +34,8 @@ class AppAsset extends AssetBundle
         'js/jquery-ui.min.js',
         'js/jquery.keyboard.js',
         'js/sweetalert.min.js',
-        'js/jquery.bxslider/jquery.bxslider.min.js'
+        'js/jquery.fitvids.js',
+        'js/jquery.bxslider/jquery.bxslider.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
