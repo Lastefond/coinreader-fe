@@ -84,15 +84,23 @@
 
     // CALLBACKS
     onSliderLoad: function() { return true; },
-    onSlideBefore: function(currentIndex, oldIndex) {
-      // $(currentIndex).children('video').trigger("play");
-      // $(oldIndex).children('video').trigger("stop");
+    onSlideBefore: function(currentIndex) {
     },
     onSlideAfter: function(oldIndex) {
-      $(oldIndex).children('video').trigger("stop");
+      var video = $(oldIndex).find('.video')[0]
+      if (video) {
+        setTimeout(function(){
+          video.pause()
+          video.currentTime = 0;
+          video.load();
+        }, 9000);
+      }
     },
     onSlideNext: function(newIndex) {
-      $(newIndex).children('video').trigger("play");
+      var video = $(newIndex).children('video')[0]
+      if (video) {
+        video.play();
+      }
     },
     onSlidePrev: function() { return true; },
     onSliderResize: function() { return true; }
