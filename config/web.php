@@ -50,7 +50,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 '/' => 'site/index',
-                // 'reboot' => 'site/reboot',
+                'reboot' => 'site/reboot',
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => ['donator'],
