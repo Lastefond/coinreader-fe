@@ -67,7 +67,7 @@
 
     // AUTO
     auto: false,
-    pause: 10000,
+    pause: 9000,
     autoStart: true,
     autoDirection: 'next',
     stopAutoOnClick: false,
@@ -85,11 +85,15 @@
     // CALLBACKS
     onSliderLoad: function() { return true; },
     onSlideBefore: function(currentIndex, oldIndex) {
-      $(currentIndex).children('video').trigger("play");
+      // $(currentIndex).children('video').trigger("play");
+      // $(oldIndex).children('video').trigger("stop");
+    },
+    onSlideAfter: function(oldIndex) {
       $(oldIndex).children('video').trigger("stop");
     },
-    onSlideAfter: function() { return true; },
-    onSlideNext: function() { return true; },
+    onSlideNext: function(newIndex) {
+      $(newIndex).children('video').trigger("play");
+    },
     onSlidePrev: function() { return true; },
     onSliderResize: function() { return true; }
   };
