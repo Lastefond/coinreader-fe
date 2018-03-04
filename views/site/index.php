@@ -219,7 +219,7 @@ JS
   </li>
   <li>
     <video width="1280" height="800">
-      <source src="/video/2.mp4" type="video/mp4">
+      <source src="/video/1.mp4" type="video/mp4">
     </video>
   </li>
   <li>
@@ -227,7 +227,7 @@ JS
   </li>
   <li>
     <video width="1280" height="800">
-      <source src="/video/1.mp4" type="video/mp4">
+      <source src="/video/2.mp4" type="video/mp4">
     </video>
   </li>
 </ul>
