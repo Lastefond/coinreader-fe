@@ -8,6 +8,7 @@ require 'recipe/yii.php';
 
 // Set configurations
 set('repository', 'https://github.com/Lastefond/coinreader-fe.git');
+env('branch', 'Video-slides');
 
 set('shared_files', [
     'config/params-local.php',
