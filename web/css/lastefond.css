@@ -1,0 +1,131 @@
+body{
+  margin:0;
+  background-color: #ffedbc;
+  overflow: hidden;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: none;
+}
+
+.hidden{
+  display: none;
+}
+
+.wrapper{
+  width: 1200px;
+  height: 450px;
+  position: absolute;
+  top:50%;
+  left:50%;
+  margin: -225px -600px;
+  background-image: url('../img/bg-content.png');
+  background-color: white;
+  border-radius: 1em;
+  border: solid 3px #f9d574;
+  text-align: center;
+}
+
+.wrapper .button{
+  padding: 1em;
+  border-radius: 3em;
+  width: 400px;
+  position: absolute;
+  top:50%;
+  left:50%;
+}
+
+.wrapper .button{
+  background-color: #5a42d7;
+  color:white;
+  text-transform: uppercase;
+  line-height: 1em;
+  font-size: 30px;
+  margin: 185px -230px;
+}
+
+.wrapper .content{
+  border-radius: 1em;
+  height: 400px;
+  margin-top: 90px;
+  font-size: 40px;
+}
+
+.wrapper .inserted-sum .sum{
+  font-size: 180px;
+  color: #5a42d7;
+  text-shadow: -3px 0 white, 0 3px white, 3px 0 white, 0 -3px white;
+}
+
+.img-left-corner{
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+}
+
+.img-right-corner{
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+}
+
+.modal{
+  width: 400px;
+  height: 200px;
+  top:50%;
+  left:50%;
+  margin:-100px -200px;
+  z-index: 50000;
+  background: white;
+  border-radius: 3px;
+  position: absolute;
+  text-align: center;
+  font-size: 30px;
+}
+
+.bx-wrapper{
+  background: #000;
+  height: 800px;
+}
+
+.bxslider .box-total{
+  background-color: #ffedbc;
+  background-image: url('../img/bg-content-purple.png');
+  height: 100vh;
+  top:50vh;
+  color: #5a42d7;
+}
+
+.bxslider .box-total .box-total-content{
+  width:100%;
+  text-shadow: -6px 0 #ffedbc, 0 6px #ffedbc, 6px 0 #ffedbc, 0 -6px #ffedbc;
+  position: absolute;
+  top: 50%;
+  text-align: center;
+  font-size: 60px;
+  margin-top: -104px;
+}
+
+.bxslider .box-total .box-total-content h1{
+  margin: 0;
+}
+
+.footer-img{
+  bottom: 0;
+  width: 100%;
+  height: 130px;
+  position: absolute;
+}
+
+.sweet-alert button{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.content .keyboard .total-sum{
+  z-index: 45000;
+  margin: -355px -230px;
+}

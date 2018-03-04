@@ -1,12 +1,19 @@
 <?php
 
 $params = require(__DIR__ . '/params.php');
+if (file_exists(__DIR__ . '/params-local.php') || is_link(__DIR__ . '/params-local.php')) {
+    $params = \yii\helpers\ArrayHelper::merge($params, require(__DIR__ . '/params-local.php'));
+}
 
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
+        'sidekiq' => function () {
+            $redis = new Predis\Client('tcp://127.0.0.1:6379/0');
+            return new \SidekiqJob\Client($redis);
+        },
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'kX1HVYmx-QGBGYbeg_0dt4Inqy27Wcfw',
@@ -37,16 +44,16 @@ $config = [
                 ],
             ],
         ],
-        'db' => require(__DIR__ . '/db.php'),
         'urlManager' => [
             'enablePrettyUrl' => true,
             'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
                 '/' => 'site/index',
+                // 'reboot' => 'site/reboot',
                 [
                     'class' => 'yii\rest\UrlRule',
-                    'controller' => ['coin'],
+                    'controller' => ['donator'],
                     'pluralize' => false,
                 ],
             ],

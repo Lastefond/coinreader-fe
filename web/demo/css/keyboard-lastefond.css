@@ -1,0 +1,59 @@
+.ui-keyboard{
+  width:100%;
+  top:50%!important;
+  left: 0%!important;
+  margin-top:-192px;
+}
+
+.ui-keyboard-preview{
+  width: 51.6em;
+  line-height: 3em;
+  text-align: center;
+  font-size:18px;
+  border: solid 3px #f9d574;
+  border-radius:1em;
+  text-transform:capitalize;
+}
+
+.ui-keyboard-preview:focus{
+  outline:none;
+}
+
+.ui-keyboard-button {
+  height: 4.8em;
+  width: 4.8em;
+  margin: .3em;
+  line-height: 4.8em;
+  -moz-user-focus: ignore;
+}
+
+.ui-keyboard-space{
+  width: 60em;
+}
+
+button{
+  background-color: #f9d574;
+  border:0;
+  padding: 0;
+  border-radius:1em;
+}
+
+.ui-keyboard-text{
+  font-size: 16px;
+}
+
+.ui-state-hover{
+  color: white;
+  background-color: #5a42d7;
+}
+
+
+/* Custom button sizes */ 
+.ui-keyboard-accept, .ui-keyboard-cancel{
+  width: 190px;
+}
+
+.ui-keyboard-accept{
+  background: green;
+  color:white;
+}

@@ -6,7 +6,8 @@ return [
         'url' => 'ws://127.0.0.1:8080/coins',
     ],
     'coinSender' => [
-        'apiUrl' => getenv('COIN_API_URL'),
-        'boxId' => getenv('COIN_BOX_ID'),
+        'boxId' => getenv('BOX_ID') ?: null, # please define in local config
+        'apiUrl' => 'https://lastefond.cariba.ee/',
+        'worker' => 'SendCoinsWorker',
     ],
 ];

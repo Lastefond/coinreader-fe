@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 /* @var $this yii\web\View */
 
@@ -6,105 +6,257 @@ use yii\helpers\Url;
 
 $this->title = 'My Yii Application';
 $coinreaderUrl = Yii::$app->params['coinReader']['url'];
+$ajaxUrl = Url::to(['/donator']);
+$restartUrl = Url::to(['/site/reboot']);
+
 $this->registerJs(<<<JS
-    var socketUrl = '{$coinreaderUrl}';
-    var coins = [];
-    var sum = 0;
-    var coinMap = {
+
+    var sendAnonTimeout;
+    var reloadTimeout;
+    var coinEntered = false;
+
+    $('.bxslider').bxSlider({
+      auto: true,
+      controls: false,
+      easing: 'ease-in-out',
+      touchEnabled: false
+    });
+
+     // $('.bxslider').click(function(){
+     //   $('.bx-wrapper').addClass('animated fadeOut');
+     //   $('.wrapper').removeClass('hidden').addClass('bounceIn');
+     //   $('.footer-img').removeClass('hidden').addClass('bounceIn');
+     // });
+
+
+    $('.inserted-sum .next').click(function(){
+      $('.sum').addClass('fadeOut');
+      $('.inserted-sum').addClass('hidden');
+      $(this).addClass('fadeOut');
+      // Next step keyboard
+      $('.keyboard').removeClass('fadeOut hidden');
+      $('.ui-keyboard').addClass('animated bounceIn');
+      $('.ui-keyboard').removeClass('fadeOut');
+    });
+
+
+    function thankYouStep(name){
+        $('.inserted-sum').addClass('hidden');
+      $('.keyboard').addClass('fadeOut hidden');
+      $('.ui-keyboard').addClass('fadeOut');
+    // Next step keyboard
+      $('.thank-you').removeClass('hidden');
+      $('.thank-you p').addClass('animated bounceIn');
+
+      coinEntered = false;
+
+      if (name) {
+        $('.thank-you .donator-name').html(' ' + name);
+      }
+    }
+
+    function timeOut(){
+      var time = new Date().getTime();
+      var timeOutDuration = 1000;
+      $(document.body).bind("mousemove keypress", function(e) {
+       time = new Date().getTime();
+     });
+
+     function refresh() {
+       if(new Date().getTime() - time >= 6000)
+         window.location.reload(true);
+       else
+         setTimeout(refresh, timeOutDuration);
+     }
+
+     setTimeout(refresh, timeOutDuration);
+    }
+
+    function modalError(){
+      $('.modal-error').removeClass('hidden');
+      // timeOut();
+    }
+
+    // function thankYou(){
+    //   $('.modal-error').removeClass('hidden');
+    //   // timeOut();
+    // }
+
+    $('#keyboard').keyboard({
+      validate: function(keyboard, value, isClosing){
+        var regex_empty_two_chars = /\w{2,}/.test(value);
+        if (!regex_empty_two_chars && isClosing) {
+          swal({
+            title: "Nimi ei ole sisestatud",
+            text: "Palun sisesta nimi või anneta anonüümselt",
+            type: "warning",
+            confirmButtonColor: "#5a42d7",
+            confirmButtonText: "Olgu!",
+            closeOnConfirm: false,
+            animation: "slide-from-top",
+            timer:10000
+          });
+        }
+        return regex_empty_two_chars;
+      },
+     alwaysOpen:true,
+     reposition : false,
+     layout: 'custom',
+     appendLocally: '.keyboard',
+     stickyShift: false,
+     display: {
+      'cancel' : 'Anonüümne annetus',
+      'accept'   : 'Lõpeta nime sisestus'
+    },
+    accepted : function(event, keyboard, el) {
+      var name  = el.value;
+      console.log('sending now');
+      coinHandler.sendCoins(name, function (data) {
+          clearCoinTimeout();
+        thankYouStep(name);
+        el.value = ''; // reset name input
+        reloadTimeout = setTimeout(location.reload.bind(location), 10000);
+      });
+
+    },
+    canceled : function(event, keyboard, el) {
+      coinHandler.sendCoins('Anonüümne', function (data) {
+        clearCoinTimeout();
+        thankYouStep(null);
+        reloadTimeout = setTimeout(location.reload.bind(location), 10000);
+      });
+    },
+    change: function () {
+          restartCoinTimeout();
+    },
+    customLayout : {
+      'normal': [
+      'Q W E R T Y U I O P Ü Õ {b}',
+      'A S D F G H J K L Ö Ä',
+      'Z X C V B N M - ',
+      '{space}',
+      '{cancel} {accept}'
+      ]
+    }
+  });
+
+    var coinHandler = new CoinHandler('{$coinreaderUrl}','{$ajaxUrl}', '{$restartUrl}',{
         1: 200,
         2: 100,
         3: 50,
         4: 20,
         5: 10,
         6: 5
-    };
+    }, function(coins) {
+        $('.sum').removeClass('fadeOut');
+        $('.inserted-sum').removeClass('hidden');
+        $('.keyboard').addClass('hidden');
+        $('.ui-keyboard').removeClass('animated bounceIn');
 
-    var mapCoin = function (value) {
-        return coinMap[value] || 0;
-    };
-    
-    var resetCounters = function () {
-        coins = [];
-        sum = 0;
-        addCoin(0);
-    };
-    
-    var addCoin = function(coinValue) {
-        coins.push(coinValue);
-        sum += parseInt(coinValue);
-        var eur = sum / 100;
-        $('#sum').text(eur.toFixed(2) + ' €');
-    };
+        $('.next').removeClass('fadeOut');
+        if (!coinEntered) {
+            $('.thank-you').addClass('hidden');
+            $('.wrapper').removeClass('hidden').addClass('bounceIn');
+            $('.bx-wrapper').addClass('animated fadeOut');
+            $('.footer-img').removeClass('hidden').addClass('bounceIn');
 
-    function start(websocketServerLocation){
-        var connection = new WebSocket(websocketServerLocation);
+            coinEntered = true;
+        }
+        clearTimeout(reloadTimeout);
+        restartCoinTimeout();
 
-        // When the connection is open, send some data to the server
-        connection.onopen = function () {
+        // coins elements are in cents, calculate the sum in €
+        var sum = coins.reduce(add, 0) / 100;
+        function add(a, b) {
+            return a + b;
+        }
+        $('#sum').text(sum.toFixed(2) + ' €');
+        $('#ty_sum').text(sum.toFixed(2) + ' €');
+    });
 
-        };
-
-        // Log errors on connection open
-        connection.onerror = function (error) {
-            
-        };
-
-        // Log messages from the server
-        connection.onmessage = function (e) {
-            addCoin(mapCoin(e.data));
-        };
+    var clearCoinTimeout = function () {
+        if (sendAnonTimeout) {
+            clearTimeout(sendAnonTimeout);
+        }
     }
 
-    start(socketUrl);
-    
-    $('body').on('submit', '#coinform', function (e) {
-        e.preventDefault();
-        var coinData = [];
-        coins.forEach(function (coin, idx) {
-            coinData[idx] = {coin_value: coin};
-        });
+    var restartCoinTimeout = function () {
+        clearCoinTimeout();
 
-        var formData = {
-            User: {
-                first_name: $('#f_name').val(),
-                last_name: $('#l_name').val()
-            },
-            Coin: coinData
-        };
-        
-        $.post( $('#coinform').attr('action'), formData, function( data, hue, xhr ) {
-            if (xhr.status == 200) {
-                resetCounters();
-            }
-            else if (xhr.status == 202) {
-                // TODO no coins entered
-                alert(data.message);
-            }
-        }).error(function(data) {
-            // TODO handle better
-            alert(data);
-        });
+        sendAnonTimeout = setTimeout(function() {
+            coinHandler.sendCoins('Anonüümne', function (data) {
+                thankYouStep(null);
+                reloadTimeout = setTimeout(location.reload.bind(location), 10000);
+            });
+        }, 20000);
+    }
+
+    $('body').on('touchstart touchend', function() {
+        restartCoinTimeout();
     });
+
 JS
-)
+,\yii\web\View::POS_READY
+);
+
+
 ?>
-<div class="site-index">
 
-    <div class="jumbotron">
-        <h1>Summa: <span id="sum">0.00 €</span> </h1>
-
-        <form id="coinform" action="<?= Url::to(['/coin']) ?>" method="post">
-            <div class="form-group">
-                <label>Eesnimi</label>
-                <input id="f_name" class="form-control" name="User[first_name]">
-            </div>
-            <div class="form-group">
-                <label>Perekonnanimi</label>
-                <input id="l_name" class="form-control" name="User[last_name]">
-            </div>
-
-            <button type="submit" class="btn btn-lg btn-success">Yes, send money!</button>
-        </form>
-
-    </div>
+<div class="footer-img hidden animated">
+  <img src="img/logo-lastefond.png" alt="" class="img-left-corner" height="130px">
+  <img src="img/content-flower.png" alt="" class="img-right-corner" height="130px">
 </div>
+
+<div class="modals">
+  <div class="modal modal-error hidden">
+    Palun sisesta nimi või lõpeta annetus anonüümselt
+  </div>
+</div>
+
+<ul class="bxslider">
+  <li>
+    <img src="/img/slideshow/1.jpg">
+  </li>
+  <li>
+    <video width="1280" height="800">
+      <source src="/video/1.mp4" type="video/mp4">
+    </video>
+  </li>
+  <li>
+    <img src="/img/slideshow/2.jpg">
+  </li>
+  <li>
+    <video width="1280" height="800">
+      <source src="/video/2.mp4" type="video/mp4">
+    </video>
+  </li>
+</ul>
+
+
+<div class="wrapper animated hidden">
+    <div class="content inserted-sum animated fadeIn">
+      <div class="title animated fadeIn">
+        Sisestatud summa
+      </div>
+      <div id="sum" class="sum animated bounceIn">0.00 €</div>
+      <div class="button animated fadeIn next">
+        Lõpeta sisestamine
+      </div>
+    </div>
+    <div class="content keyboard hidden">
+      <!-- <div class="button animated fadeIn total-sum">
+        12102012 €
+      </div> -->
+      <input type="text" id="keyboard" placeholder="Sisesta nimi" style="display: none;">
+    </div>
+
+    <div class="content thank-you hidden">
+      <p>Tänan<span class="donator-name"></span>!</p>
+        <p>Summa: <span id="ty_sum"></span></p>
+        <a class="button animated fadeIn next" id="newDonationButton" href="<?= Url::to(['/']) ?>">
+            Alusta uut annetust
+        </a>
+    </div>
+  </div>
+
+

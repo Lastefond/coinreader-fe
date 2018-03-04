@@ -9,6 +9,10 @@ require 'recipe/yii.php';
 // Set configurations
 set('repository', 'https://github.com/Lastefond/coinreader-fe.git');
 
+set('shared_files', [
+    'config/params-local.php',
+]);
+
 task('deploy:fix_assets', function () {
     run('chmod 777 {{release_path}}/web/assets');
 });
