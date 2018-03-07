@@ -92,7 +92,6 @@
         setTimeout(function(){
           video.pause()
           video.currentTime = 0;
-          video.load();
         }, 9000);
       }
     },

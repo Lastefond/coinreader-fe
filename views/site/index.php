@@ -218,16 +218,23 @@ JS
     <img src="/img/slideshow/1.jpg">
   </li>
   <li>
+    <video width="1280" height="800"  class="video">
+      <source src="/video/4.mp4" type="video/mp4">
+    </video>
+  </li>
+  <li>
     <video width="1280" height="800" class="video">
       <source src="/video/1.mp4" type="video/mp4">
     </video>
   </li>
   <li>
-    <img src="/img/slideshow/2.jpg">
-  </li>
-  <li>
     <video width="1280" height="800"  class="video">
       <source src="/video/2.mp4" type="video/mp4">
+    </video>
+  </li>
+  <li>
+    <video width="1280" height="800" class="video">
+      <source src="/video/3.mp4" type="video/mp4">
     </video>
   </li>
 </ul>
