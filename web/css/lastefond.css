@@ -62,14 +62,14 @@ body{
 
 .img-left-corner{
   position: absolute;
-  bottom: 20px; 
-  left: 30px; 
+  bottom: 20px;
+  left: 30px;
 }
 
 .img-right-corner{
   position: absolute;
-  bottom: 20px; 
-  right: 30px; 
+  bottom: 20px;
+  right: 30px;
 }
 
 .modal{
@@ -86,8 +86,9 @@ body{
   font-size: 30px;
 }
 
-.thank-you{
-
+.bx-wrapper{
+  background: #000;
+  height: 800px;
 }
 
 .bxslider .box-total{

@@ -24,7 +24,7 @@
     tickerHover: false,
     adaptiveHeight: false,
     adaptiveHeightSpeed: 500,
-    video: false,
+    video: true,
     useCSS: true,
     preloadImages: 'visible',
     responsive: true,
@@ -67,7 +67,7 @@
 
     // AUTO
     auto: false,
-    pause: 4000,
+    pause: 9000,
     autoStart: true,
     autoDirection: 'next',
     stopAutoOnClick: false,
@@ -84,9 +84,23 @@
 
     // CALLBACKS
     onSliderLoad: function() { return true; },
-    onSlideBefore: function() { return true; },
-    onSlideAfter: function() { return true; },
-    onSlideNext: function() { return true; },
+    onSlideBefore: function(currentIndex) {
+    },
+    onSlideAfter: function(oldIndex) {
+      var video = $(oldIndex).find('.video')[0]
+      if (video) {
+        setTimeout(function(){
+          video.pause()
+          video.currentTime = 0;
+        }, 9000);
+      }
+    },
+    onSlideNext: function(newIndex) {
+      var video = $(newIndex).children('video')[0]
+      if (video) {
+        video.play();
+      }
+    },
     onSlidePrev: function() { return true; },
     onSliderResize: function() { return true; }
   };
