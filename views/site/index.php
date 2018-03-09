@@ -215,27 +215,28 @@ JS
 
 <ul class="bxslider">
   <li>
-    <img src="/img/slideshow/1.jpg">
+    <img src="/img/slideshow/new/1.jpg">
   </li>
   <li>
-    <video width="1280" height="800"  class="video">
-      <source src="/video/4.mp4" type="video/mp4">
-    </video>
+    <img src="/img/slideshow/new/2.jpg">
   </li>
   <li>
-    <video width="1280" height="800" class="video">
-      <source src="/video/1.mp4" type="video/mp4">
-    </video>
+    <img src="/img/slideshow/new/7.jpg">
   </li>
   <li>
-    <video width="1280" height="800"  class="video">
-      <source src="/video/2.mp4" type="video/mp4">
-    </video>
+    <img src="/img/slideshow/new/8.jpg">
   </li>
   <li>
-    <video width="1280" height="800" class="video">
-      <source src="/video/3.mp4" type="video/mp4">
-    </video>
+    <img src="/img/slideshow/new/5.jpg">
+  </li>
+  <li>
+    <img src="/img/slideshow/new/6.jpg">
+  </li>
+  <li>
+    <img src="/img/slideshow/new/3.jpg">
+  </li>
+  <li>
+    <img src="/img/slideshow/new/4.jpg">
   </li>
 </ul>
 
