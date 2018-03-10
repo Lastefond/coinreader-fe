@@ -9,6 +9,10 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'aliases' => [
+        '@bower' => '@vendor/bower-asset',
+        '@npm' => '@vendor/npm-asset',
+    ],
     'components' => [
         'sidekiq' => function () {
             $redis = new Predis\Client('tcp://127.0.0.1:6379/0');
